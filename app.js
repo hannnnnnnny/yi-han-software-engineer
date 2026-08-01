@@ -828,156 +828,59 @@
     draw(performance.now()); // first paint even when reduced motion
   }
 
-  /* ---------- Collaborative pull request canvas ---------- */
+  /* ---------- Collaborative pull request workflow ---------- */
   function initSystemFlow() {
-    const canvas = $("#system-canvas");
-    if (!canvas) return;
+    const workflow = $("[data-pr-workflow]");
+    if (!workflow) return;
 
-    const ctx = canvas.getContext("2d");
     const focus = $("#system-focus");
     const speed = $("#system-speed");
     const output = $("#system-flow-output");
-    const flow = [
-      { key: "Branch", status: "branch ready", x: 0.16, y: 0.33, color: "#7ee7d6" },
-      { key: "Commit", status: "commit added", x: 0.39, y: 0.33, color: "#aebdff" },
-      { key: "Push", status: "push sent", x: 0.62, y: 0.33, color: "#f2c879" },
-      { key: "Open PR", status: "pull request open", x: 0.85, y: 0.33, color: "#f48fb1" },
-      { key: "Review", status: "review active", x: 0.85, y: 0.7, color: "#f7a8c7" },
-      { key: "CI checks", status: "checks running", x: 0.52, y: 0.7, color: "#a7b8c7" },
-      { key: "Merge", status: "ready to merge", x: 0.18, y: 0.7, color: "#dce5ec" },
-    ];
-    let running = false;
-    let rafId = 0;
-    let startTime = performance.now();
-    let currentIndex = 4;
+    const steps = $$("[data-pr-stage]", workflow);
+    if (!steps.length) return;
 
-    function resize() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      const { width, height } = canvas.getBoundingClientRect();
-      if (!width || !height) return;
-      canvas.width = Math.round(width * ratio);
-      canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    }
+    let intervalId = 0;
+    let currentIndex = Math.max(0, steps.findIndex((step) => step.classList.contains("is-active")));
 
-    function point(node) {
-      const width = canvas.clientWidth || 520;
-      const height = canvas.clientHeight || 360;
-      return { x: node.x * width, y: node.y * height };
-    }
-
-    function nodeBox(width) {
-      return {
-        width: clamp(width * 0.19, 66, 96),
-        height: width < 380 ? 36 : 44,
-        radius: width < 380 ? 11 : 13,
-        font: width < 380 ? "700 11px Inter, system-ui, sans-serif" : "700 12px Inter, system-ui, sans-serif",
-      };
-    }
-
-    function draw(timestamp) {
-      const width = canvas.clientWidth || 520;
-      const height = canvas.clientHeight || 360;
-      const box = nodeBox(width);
+    function delay() {
       const multiplier = speed ? Number(speed.value) || 3 : 3;
-      const duration = 7800 - multiplier * 900;
-      const t = ((timestamp - startTime) % duration) / duration;
-      const segment = Math.floor(t * flow.length);
-      const local = (t * flow.length) % 1;
-      const from = flow[segment % flow.length];
-      const to = flow[(segment + 1) % flow.length];
-      const fromPoint = point(from);
-      const toPoint = point(to);
-      const packet = {
-        x: fromPoint.x + (toPoint.x - fromPoint.x) * local,
-        y: fromPoint.y + (toPoint.y - fromPoint.y) * local,
-      };
+      return 3600 - multiplier * 420;
+    }
 
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#080d12";
-      ctx.fillRect(0, 0, width, height);
+    function setStage(index) {
+      currentIndex = (index + steps.length) % steps.length;
+      const progress = steps.length > 1 ? (currentIndex / (steps.length - 1)) * 100 : 0;
+      workflow.style.setProperty("--pr-progress", `${progress}%`);
 
-      ctx.fillStyle = "rgba(236, 242, 246, 0.34)";
-      ctx.font = "700 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
-      ctx.textAlign = "left";
-      ctx.textBaseline = "middle";
-      ctx.fillText("AUTHOR", 18, Math.max(20, height * 0.16));
-      ctx.fillText("REVIEW + CI", 18, Math.max(44, height * 0.57));
-      ctx.strokeStyle = "rgba(220, 229, 236, 0.08)";
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 8]);
-      ctx.beginPath();
-      ctx.moveTo(14, height * 0.5);
-      ctx.lineTo(width - 14, height * 0.5);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      ctx.lineWidth = 2;
-      for (let index = 0; index < flow.length; index += 1) {
-        const a = point(flow[index]);
-        const b = point(flow[(index + 1) % flow.length]);
-        ctx.strokeStyle = "rgba(220, 229, 236, 0.18)";
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-
-      ctx.fillStyle = hexToRgba(to.color, 0.22);
-      ctx.beginPath();
-      ctx.arc(packet.x, packet.y, width < 380 ? 14 : 17, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = to.color;
-      ctx.beginPath();
-      ctx.arc(packet.x, packet.y, width < 380 ? 5 : 6, 0, Math.PI * 2);
-      ctx.fill();
-
-      flow.forEach((node, index) => {
-        const p = point(node);
-        const active = index === segment % flow.length;
-        ctx.fillStyle = active ? hexToRgba(node.color, 0.28) : "rgba(255, 255, 255, 0.06)";
-        ctx.strokeStyle = active ? node.color : "rgba(220, 229, 236, 0.22)";
-        ctx.lineWidth = active ? 2.6 : 1.4;
-        ctx.beginPath();
-        ctx.roundRect(p.x - box.width / 2, p.y - box.height / 2, box.width, box.height, box.radius);
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = active ? "#f8fbff" : "rgba(236, 242, 246, 0.78)";
-        ctx.font = box.font;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(node.key, p.x, p.y);
+      steps.forEach((step, stepIndex) => {
+        step.classList.toggle("is-active", stepIndex === currentIndex);
+        step.classList.toggle("is-complete", stepIndex < currentIndex);
       });
 
-      if (currentIndex !== segment % flow.length) {
-        currentIndex = segment % flow.length;
-        if (focus) focus.textContent = flow[currentIndex].key;
-        if (output) output.textContent = flow[currentIndex].status;
-      }
-
-      if (running) rafId = requestAnimationFrame(draw);
+      const active = steps[currentIndex];
+      if (focus) focus.textContent = active.dataset.prStage || "";
+      if (output) output.textContent = active.dataset.prStatus || "";
     }
 
     function start() {
-      if (running || reduceMotion) return;
-      running = true;
-      rafId = requestAnimationFrame(draw);
+      if (intervalId || reduceMotion) return;
+      intervalId = window.setInterval(() => setStage(currentIndex + 1), delay());
     }
 
     function stop() {
-      running = false;
-      cancelAnimationFrame(rafId);
+      window.clearInterval(intervalId);
+      intervalId = 0;
     }
 
-    resize();
-    window.addEventListener("resize", () => {
-      resize();
-      draw(performance.now());
-    }, { passive: true });
+    steps.forEach((step, index) => {
+      step.addEventListener("mouseenter", () => setStage(index));
+      step.addEventListener("focus", () => setStage(index));
+    });
+
     if (speed) {
       speed.addEventListener("input", () => {
-        startTime = performance.now();
-        draw(startTime);
+        stop();
+        start();
       });
     }
 
@@ -988,12 +891,12 @@
           else stop();
         });
       }, { threshold: 0.05 });
-      observer.observe(canvas);
+      observer.observe(workflow);
     } else {
       start();
     }
 
-    draw(performance.now());
+    setStage(currentIndex);
   }
 
   /* ---------- helpers ---------- */

@@ -4,7 +4,7 @@ This repository contains Yi Han's role-specific software engineering portfolio:
 
 https://hannnnnnnny.github.io/yi-han-software-engineer/
 
-It is a static GitHub Pages site focused on full-stack software projects, with a small vanilla JavaScript layer for the command palette, project filters, skill map, scroll state, and collaborative PR workflow canvas.
+It is a static GitHub Pages site focused on full-stack software projects, with a small vanilla JavaScript layer for the command palette, project filters, skill map, scroll state, and collaborative PR workflow panel.
 
 ## Featured Projects
 

@@ -111,20 +111,55 @@
         <div class="hero-demo-heading">
           <p class="eyebrow">Interactive PR workflow</p>
           <h2 id="demo-title">See collaboration move through a pull request.</h2>
-          <p>A small JavaScript canvas showing how branch work, commits, review, CI, and merge decisions fit together.</p>
+          <p>A small interactive panel showing how branch work, commits, review, CI, and merge decisions fit together.</p>
         </div>
         <div class="model-widget" aria-label="Interactive collaborative pull request workflow">
           <div class="model-widget-header">
             <span>Collaborative PR flow</span>
-            <output id="system-flow-output">review active</output>
+            <output id="system-flow-output">pull request open</output>
           </div>
-          <div class="model-canvas-wrap">
-            <canvas id="system-canvas" width="520" height="360" role="img"
-              aria-label="Animated collaborative pull request workflow from branch to commit, push, open pull request, review, CI checks, and merge."></canvas>
+          <div class="pr-workflow" data-pr-workflow aria-label="Interactive pull request workflow from branch to review, checks, and merge.">
+            <div class="pr-summary">
+              <div>
+                <span class="pr-eyebrow">
+                  <i data-lucide="git-pull-request" aria-hidden="true"></i>
+                  Pull request #12
+                </span>
+                <strong>Improve Auckland events discovery</strong>
+              </div>
+              <span class="pr-state">Open</span>
+            </div>
+            <ol class="pr-track" aria-label="Pull request stages">
+              <li class="pr-step" tabindex="0" data-pr-stage="Work branch" data-pr-status="branch work ready">
+                <span class="pr-icon"><i data-lucide="git-branch" aria-hidden="true"></i></span>
+                <span class="pr-copy"><strong>Work branch</strong><small>event-feed, 4 focused commits</small></span>
+                <span class="pr-actor">Author</span>
+              </li>
+              <li class="pr-step is-active" tabindex="0" data-pr-stage="Open PR" data-pr-status="pull request open">
+                <span class="pr-icon"><i data-lucide="git-pull-request" aria-hidden="true"></i></span>
+                <span class="pr-copy"><strong>Open PR</strong><small>scope, screenshots, setup notes</small></span>
+                <span class="pr-actor">GitHub</span>
+              </li>
+              <li class="pr-step" tabindex="0" data-pr-stage="Review + CI" data-pr-status="review and checks active">
+                <span class="pr-icon"><i data-lucide="message-square" aria-hidden="true"></i></span>
+                <span class="pr-copy"><strong>Review + CI</strong><small>comments, syntax, links, preview</small></span>
+                <span class="pr-actor">Team</span>
+              </li>
+              <li class="pr-step" tabindex="0" data-pr-stage="Merge" data-pr-status="ready to merge">
+                <span class="pr-icon"><i data-lucide="git-merge" aria-hidden="true"></i></span>
+                <span class="pr-copy"><strong>Merge</strong><small>main branch updated</small></span>
+                <span class="pr-actor">Maintainer</span>
+              </li>
+            </ol>
+            <div class="pr-check-strip" aria-label="Pull request evidence">
+              <span><i data-lucide="message-square" aria-hidden="true"></i> review notes</span>
+              <span><i data-lucide="terminal" aria-hidden="true"></i> checks logged</span>
+              <span><i data-lucide="external-link" aria-hidden="true"></i> preview linked</span>
+            </div>
           </div>
           <div class="knn-readout system-readout">
             <span class="knn-pred-label">Current stage</span>
-            <span class="knn-pred" id="system-focus" aria-live="polite">Code review</span>
+            <span class="knn-pred" id="system-focus" aria-live="polite">Open PR</span>
             <div class="knn-votes" aria-hidden="true">
               <span style="--vote-color: #7ee7d6;"></span>
               <span style="--vote-color: #f2c879;"></span>
