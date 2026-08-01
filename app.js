@@ -838,13 +838,13 @@
     const speed = $("#system-speed");
     const output = $("#system-flow-output");
     const flow = [
-      { key: "Branch", status: "branch ready", x: 0.2, y: 0.32, color: "#7ee7d6" },
-      { key: "Commit", status: "commit added", x: 0.36, y: 0.18, color: "#aebdff" },
-      { key: "Push", status: "push sent", x: 0.56, y: 0.28, color: "#f2c879" },
-      { key: "Open PR", status: "pull request open", x: 0.78, y: 0.3, color: "#f48fb1" },
-      { key: "Review", status: "review active", x: 0.78, y: 0.64, color: "#f7a8c7" },
-      { key: "CI checks", status: "checks running", x: 0.54, y: 0.78, color: "#a7b8c7" },
-      { key: "Merge", status: "ready to merge", x: 0.24, y: 0.68, color: "#dce5ec" },
+      { key: "Branch", status: "branch ready", x: 0.16, y: 0.33, color: "#7ee7d6" },
+      { key: "Commit", status: "commit added", x: 0.39, y: 0.33, color: "#aebdff" },
+      { key: "Push", status: "push sent", x: 0.62, y: 0.33, color: "#f2c879" },
+      { key: "Open PR", status: "pull request open", x: 0.85, y: 0.33, color: "#f48fb1" },
+      { key: "Review", status: "review active", x: 0.85, y: 0.7, color: "#f7a8c7" },
+      { key: "CI checks", status: "checks running", x: 0.52, y: 0.7, color: "#a7b8c7" },
+      { key: "Merge", status: "ready to merge", x: 0.18, y: 0.7, color: "#dce5ec" },
     ];
     let running = false;
     let rafId = 0;
@@ -866,9 +866,19 @@
       return { x: node.x * width, y: node.y * height };
     }
 
+    function nodeBox(width) {
+      return {
+        width: clamp(width * 0.19, 66, 96),
+        height: width < 380 ? 36 : 44,
+        radius: width < 380 ? 11 : 13,
+        font: width < 380 ? "700 11px Inter, system-ui, sans-serif" : "700 12px Inter, system-ui, sans-serif",
+      };
+    }
+
     function draw(timestamp) {
       const width = canvas.clientWidth || 520;
       const height = canvas.clientHeight || 360;
+      const box = nodeBox(width);
       const multiplier = speed ? Number(speed.value) || 3 : 3;
       const duration = 7800 - multiplier * 900;
       const t = ((timestamp - startTime) % duration) / duration;
@@ -892,7 +902,7 @@
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
       ctx.fillText("AUTHOR", 18, Math.max(20, height * 0.16));
-      ctx.fillText("REVIEW + CI", 18, Math.max(44, height * 0.58));
+      ctx.fillText("REVIEW + CI", 18, Math.max(44, height * 0.57));
       ctx.strokeStyle = "rgba(220, 229, 236, 0.08)";
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 8]);
@@ -913,6 +923,15 @@
         ctx.stroke();
       }
 
+      ctx.fillStyle = hexToRgba(to.color, 0.22);
+      ctx.beginPath();
+      ctx.arc(packet.x, packet.y, width < 380 ? 14 : 17, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = to.color;
+      ctx.beginPath();
+      ctx.arc(packet.x, packet.y, width < 380 ? 5 : 6, 0, Math.PI * 2);
+      ctx.fill();
+
       flow.forEach((node, index) => {
         const p = point(node);
         const active = index === segment % flow.length;
@@ -920,24 +939,15 @@
         ctx.strokeStyle = active ? node.color : "rgba(220, 229, 236, 0.22)";
         ctx.lineWidth = active ? 2.6 : 1.4;
         ctx.beginPath();
-        ctx.roundRect(p.x - 54, p.y - 24, 108, 48, 14);
+        ctx.roundRect(p.x - box.width / 2, p.y - box.height / 2, box.width, box.height, box.radius);
         ctx.fill();
         ctx.stroke();
         ctx.fillStyle = active ? "#f8fbff" : "rgba(236, 242, 246, 0.78)";
-        ctx.font = "600 13px Inter, system-ui, sans-serif";
+        ctx.font = box.font;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(node.key, p.x, p.y);
       });
-
-      ctx.fillStyle = hexToRgba(to.color, 0.25);
-      ctx.beginPath();
-      ctx.arc(packet.x, packet.y, 19, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = to.color;
-      ctx.beginPath();
-      ctx.arc(packet.x, packet.y, 7, 0, Math.PI * 2);
-      ctx.fill();
 
       if (currentIndex !== segment % flow.length) {
         currentIndex = segment % flow.length;
