@@ -109,75 +109,63 @@
 
       <aside class="hero-demo" aria-labelledby="demo-title">
         <div class="hero-demo-heading">
-          <p class="eyebrow">Interactive PR workflow</p>
-          <h2 id="demo-title">See collaboration move through a pull request.</h2>
-          <p>A small interactive panel showing how branch work, commits, review, CI, and merge decisions fit together.</p>
+          <p class="eyebrow">Project delivery map</p>
+          <h2 id="demo-title">From research to shipped work.</h2>
+          <p>A static sketch of how I move a real project from problem discovery to planned tasks, reviewed code, checks, and release.</p>
         </div>
-        <div class="model-widget" aria-label="Interactive collaborative pull request workflow">
+        <div class="model-widget" aria-label="Static project delivery workflow from research to release">
           <div class="model-widget-header">
-            <span>Collaborative PR flow</span>
-            <output id="system-flow-output">pull request open</output>
+            <span>Delivery discipline</span>
+            <span>research to release</span>
           </div>
-          <div class="pr-workflow" data-pr-workflow aria-label="Interactive pull request workflow from branch to review, checks, and merge.">
-            <div class="pr-summary">
-              <div>
-                <span class="pr-eyebrow">
-                  <i data-lucide="git-pull-request" aria-hidden="true"></i>
-                  Pull request #12
-                </span>
-                <strong>Improve Auckland events discovery</strong>
-              </div>
-              <span class="pr-state">Open</span>
-            </div>
-            <ol class="pr-track" aria-label="Pull request stages">
-              <li class="pr-step" tabindex="0" data-pr-stage="Work branch" data-pr-status="branch work ready">
-                <span class="pr-icon"><i data-lucide="git-branch" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Work branch</strong><small>event-feed, 4 focused commits</small></span>
-                <span class="pr-actor">Author</span>
+          <figure class="delivery-map" aria-label="Project delivery workflow">
+            <ol>
+              <li>
+                <span class="delivery-index">01</span>
+                <span class="delivery-icon"><i data-lucide="search" aria-hidden="true"></i></span>
+                <strong>Project research</strong>
+                <small>Need, users, constraints</small>
               </li>
-              <li class="pr-step is-active" tabindex="0" data-pr-stage="Open PR" data-pr-status="pull request open">
-                <span class="pr-icon"><i data-lucide="git-pull-request" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Open PR</strong><small>scope, screenshots, setup notes</small></span>
-                <span class="pr-actor">GitHub</span>
+              <li>
+                <span class="delivery-index">02</span>
+                <span class="delivery-icon"><i data-lucide="list-checks" aria-hidden="true"></i></span>
+                <strong>Project plan</strong>
+                <small>Scope, milestones, risks</small>
               </li>
-              <li class="pr-step" tabindex="0" data-pr-stage="Review + CI" data-pr-status="review and checks active">
-                <span class="pr-icon"><i data-lucide="message-square" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Review + CI</strong><small>comments, syntax, links, preview</small></span>
-                <span class="pr-actor">Team</span>
+              <li>
+                <span class="delivery-index">03</span>
+                <span class="delivery-icon"><i data-lucide="circle-dot" aria-hidden="true"></i></span>
+                <strong>GitHub tasks</strong>
+                <small>Issues, labels, criteria</small>
               </li>
-              <li class="pr-step" tabindex="0" data-pr-stage="Merge" data-pr-status="ready to merge">
-                <span class="pr-icon"><i data-lucide="git-merge" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Merge</strong><small>main branch updated</small></span>
-                <span class="pr-actor">Maintainer</span>
+              <li>
+                <span class="delivery-index">04</span>
+                <span class="delivery-icon"><i data-lucide="git-pull-request" aria-hidden="true"></i></span>
+                <strong>Rigorous PR</strong>
+                <small>Small diff, notes, screenshots</small>
+              </li>
+              <li>
+                <span class="delivery-index">05</span>
+                <span class="delivery-icon"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+                <strong>CI review</strong>
+                <small>Checks, links, responsive states</small>
+              </li>
+              <li>
+                <span class="delivery-index">06</span>
+                <span class="delivery-icon"><i data-lucide="rocket" aria-hidden="true"></i></span>
+                <strong>Delivery</strong>
+                <small>Deploy, document, learn</small>
               </li>
             </ol>
-            <div class="pr-check-strip" aria-label="Pull request evidence">
-              <span><i data-lucide="message-square" aria-hidden="true"></i> review notes</span>
-              <span><i data-lucide="terminal" aria-hidden="true"></i> checks logged</span>
-              <span><i data-lucide="external-link" aria-hidden="true"></i> preview linked</span>
-            </div>
-          </div>
-          <div class="knn-readout system-readout">
-            <span class="knn-pred-label">Current stage</span>
-            <span class="knn-pred" id="system-focus" aria-live="polite">Open PR</span>
-            <div class="knn-votes" aria-hidden="true">
-              <span style="--vote-color: #7ee7d6;"></span>
-              <span style="--vote-color: #f2c879;"></span>
-              <span style="--vote-color: #f48fb1;"></span>
-            </div>
-          </div>
-          <label class="knn-control" for="system-speed">
-            <span>Flow speed</span>
-            <input id="system-speed" type="range" min="1" max="5" step="1" value="3" autocomplete="off">
-          </label>
+            <figcaption>
+              The goal is not a perfect first draft. The goal is a project that survives planning, review, checks, and real use.
+            </figcaption>
+          </figure>
         </div>
-        <div class="demo-links" aria-label="Demo evidence">
-          <a href="https://github.com/hannnnnnnny/yi-han-software-engineer/blob/main/app.js" target="_blank" rel="noopener noreferrer">
-            <i data-lucide="code-2" aria-hidden="true"></i>
-            Source
-          </a>
+        <div class="demo-links" aria-label="Delivery evidence links">
           <a href="#project-renova">ReNova project</a>
-          <a href="#project-tilltally">TypeScript project</a>
+          <a href="#project-kiwicue">KiwiCue project</a>
+          <a href="#project-tilltally">TillTally project</a>
         </div>
       </aside>
     </section>

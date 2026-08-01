@@ -828,77 +828,6 @@
     draw(performance.now()); // first paint even when reduced motion
   }
 
-  /* ---------- Collaborative pull request workflow ---------- */
-  function initSystemFlow() {
-    const workflow = $("[data-pr-workflow]");
-    if (!workflow) return;
-
-    const focus = $("#system-focus");
-    const speed = $("#system-speed");
-    const output = $("#system-flow-output");
-    const steps = $$("[data-pr-stage]", workflow);
-    if (!steps.length) return;
-
-    let intervalId = 0;
-    let currentIndex = Math.max(0, steps.findIndex((step) => step.classList.contains("is-active")));
-
-    function delay() {
-      const multiplier = speed ? Number(speed.value) || 3 : 3;
-      return 3600 - multiplier * 420;
-    }
-
-    function setStage(index) {
-      currentIndex = (index + steps.length) % steps.length;
-      const progress = steps.length > 1 ? (currentIndex / (steps.length - 1)) * 100 : 0;
-      workflow.style.setProperty("--pr-progress", `${progress}%`);
-
-      steps.forEach((step, stepIndex) => {
-        step.classList.toggle("is-active", stepIndex === currentIndex);
-        step.classList.toggle("is-complete", stepIndex < currentIndex);
-      });
-
-      const active = steps[currentIndex];
-      if (focus) focus.textContent = active.dataset.prStage || "";
-      if (output) output.textContent = active.dataset.prStatus || "";
-    }
-
-    function start() {
-      if (intervalId || reduceMotion) return;
-      intervalId = window.setInterval(() => setStage(currentIndex + 1), delay());
-    }
-
-    function stop() {
-      window.clearInterval(intervalId);
-      intervalId = 0;
-    }
-
-    steps.forEach((step, index) => {
-      step.addEventListener("mouseenter", () => setStage(index));
-      step.addEventListener("focus", () => setStage(index));
-    });
-
-    if (speed) {
-      speed.addEventListener("input", () => {
-        stop();
-        start();
-      });
-    }
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) start();
-          else stop();
-        });
-      }, { threshold: 0.05 });
-      observer.observe(workflow);
-    } else {
-      start();
-    }
-
-    setStage(currentIndex);
-  }
-
   /* ---------- helpers ---------- */
   function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
@@ -959,5 +888,4 @@
   initCommandPalette();
   initProjectInspector();
   initSkillMap();
-  initSystemFlow();
 })();
