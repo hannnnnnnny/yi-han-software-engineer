@@ -3,229 +3,707 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yi Han's software engineering portfolio focused on full-stack web systems, Java, Spring Boot, Vue, TypeScript, APIs, and databases.">
+  <meta name="description" content="Yi Han is an Auckland-based Software Engineer and Master of IT student building full-stack web applications with Java, Spring Boot, Vue, React, Node.js, and databases.">
   <meta name="theme-color" content="#050608">
   <link rel="canonical" href="https://hannnnnnnny.github.io/yi-han-software-engineer/">
-  <meta property="og:title" content="Yi Han | Software Engineering Portfolio">
-  <meta property="og:description" content="Full-stack projects from Yi Han: KiwiCue, ReNova, and Study Room Booking System.">
+  <meta property="og:title" content="Software Engineer | Yi Han">
+  <meta property="og:description" content="Full-stack software projects from Yi Han, a Master of IT student building Java, Spring Boot, Vue, React, TypeScript, Node.js, and database-backed systems.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hannnnnnnny.github.io/yi-han-software-engineer/">
   <meta property="og:image" content="https://hannnnnnnny.github.io/yi-han-software-engineer/assets/social-preview.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Yi Han | Software Engineering Portfolio">
-  <meta name="twitter:description" content="Full-stack projects from Yi Han: KiwiCue, ReNova, and Study Room Booking System.">
+  <meta name="twitter:title" content="Software Engineer | Yi Han">
+  <meta name="twitter:description" content="Full-stack software projects from Yi Han, a Master of IT student building Java, Spring Boot, Vue, React, TypeScript, Node.js, and database-backed systems.">
   <meta name="twitter:image" content="https://hannnnnnnny.github.io/yi-han-software-engineer/assets/social-preview.svg">
-  <title>Yi Han | Software Engineering Portfolio</title>
+  <title>Software Engineer | Yi Han</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="styles.css?v=20260627-fit">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="sidebar">
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="ambient-aurora" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <button class="command-trigger" type="button" aria-haspopup="dialog" aria-controls="command-palette" data-command-open data-magnetic>
+    <span>Ctrl K</span>
+    <b>Explore</b>
+  </button>
+
+  <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Yi Han software engineering portfolio home">
+      <a class="brand" href="#top" aria-label="Yi Han home">
         <span>Yi Han</span>
-        <small>Software Engineering</small>
+        <small>Software Engineer</small>
       </a>
-      <p>Full-stack web systems, APIs, databases, and practical product workflows.</p>
+      <p class="nav-note">
+        Full-stack web systems, APIs, databases, and product workflows.
+      </p>
       <div class="nav-links">
-        <a href="#projects">Projects</a>
-        <a href="#stack">Stack</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#top" data-section-link="top">Profile</a>
+        <a href="#work" data-section-link="work">Work</a>
+        <a href="#lifecycle" data-section-link="lifecycle">Process</a>
+        <a href="#projects" data-section-link="projects">Projects</a>
+        <a href="#notes" data-section-link="notes">Notes</a>
+        <a href="#skills" data-section-link="skills">Skills</a>
+        <a href="#contact" data-section-link="contact">Contact</a>
       </div>
-      <div class="nav-meta">
-        <a href="https://hannnnnnnny.github.io/">Portfolio hub</a>
-        <a href="https://hannnnnnnny.github.io/yi-han-data-analytics/">Data analytics site</a>
+      <div class="nav-meta" aria-label="Quick profile links">
+        <span>Auckland, New Zealand</span>
+        <a href="https://github.com/hannnnnnnny" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <p class="eyebrow">Software engineering portfolio</p>
-      <h1 id="hero-title">I build practical web applications that connect frontend, backend, and data.</h1>
-      <p class="intro">
-        I am Yi Han, a Master of IT student at the University of Auckland. My
-        software engineering work is shaped around small but realistic systems:
-        event discovery, marketplace flows, bookings, authentication, APIs, and
-        database-backed interfaces.
-      </p>
-      <div class="cta-row" aria-label="Primary links">
-        <a href="#projects">View software projects</a>
-        <a href="https://github.com/hannnnnnnny" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="mailto:harryhaber606@gmail.com">Email</a>
-        <a href="assets/YiHan_Resume.pdf" type="application/pdf">Resume</a>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-text">
+        <p class="eyebrow hero-rise" style="--rise-delay: 0ms">Full-stack web applications / APIs / databases</p>
+        <h1 id="hero-title" class="hero-title"><span class="reveal-line"><span class="reveal-inner" style="--rise-delay: 90ms">Software Engineer | Yi Han</span></span></h1>
+        <p class="hero-statement hero-rise" style="--rise-delay: 230ms">Master of IT student building full-stack web applications with Java, Spring Boot, Vue, React, Node.js, and databases.</p>
+        <p class="hero-context hero-rise" style="--rise-delay: 340ms">
+          I like finding real needs in everyday workflows and turning them into
+          practical software projects that people can inspect, run, and use.
+        </p>
+
+        <ul class="hero-proof" aria-label="Profile highlights">
+          <li><strong>3</strong><span>focused software projects</span></li>
+          <li><strong>Java / TypeScript / SQL</strong><span>engineering foundation</span></li>
+          <li><strong>Auckland, NZ</strong><span>current location</span></li>
+          <li><strong>Open</strong><span>graduate software roles</span></li>
+        </ul>
+
+        <div class="hero-actions" aria-label="Primary actions">
+          <a class="hero-button hero-button-primary" href="#projects" data-magnetic>
+            <span class="magnetic-inner">
+              <i data-lucide="briefcase-business" aria-hidden="true"></i>
+              View selected work
+            </span>
+          </a>
+          <a class="hero-button hero-button-secondary" href="assets/YiHan_Resume.pdf" type="application/pdf" data-magnetic>
+            <span class="magnetic-inner">
+              <i data-lucide="file-text" aria-hidden="true"></i>
+              Resume PDF
+            </span>
+          </a>
+          <div class="hero-socials" aria-label="Contact and profiles">
+            <a href="mailto:harryhaber606@gmail.com" aria-label="Email Yi Han" title="Email">
+              <i data-lucide="mail" aria-hidden="true"></i>
+            </a>
+            <a href="https://github.com/hannnnnnnny" target="_blank" rel="noopener noreferrer" aria-label="Yi Han on GitHub" title="GitHub">
+              <img class="hero-brand-icon hero-brand-icon-mono" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" aria-hidden="true">
+            </a>
+            <a href="https://www.linkedin.com/in/yi-han-29ab28323" target="_blank" rel="noopener noreferrer" aria-label="Yi Han on LinkedIn" title="LinkedIn">
+              <img class="hero-brand-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" alt="" aria-hidden="true">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-demo" aria-labelledby="demo-title">
+        <div class="hero-demo-heading">
+          <p class="eyebrow">Interactive system sketch</p>
+          <h2 id="demo-title">Follow a request through the stack.</h2>
+          <p>A small JavaScript canvas showing how frontend, API, database, and checks fit together.</p>
+        </div>
+        <div class="model-widget" aria-label="Interactive full-stack request flow">
+          <div class="model-widget-header">
+            <span>Full-stack flow</span>
+            <output id="system-flow-output">request path</output>
+          </div>
+          <div class="model-canvas-wrap">
+            <canvas id="system-canvas" width="520" height="360" role="img"
+              aria-label="Animated full-stack flow from browser to frontend, API, database, tests, and deployment checks."></canvas>
+          </div>
+          <div class="knn-readout system-readout">
+            <span class="knn-pred-label">Current focus</span>
+            <span class="knn-pred" id="system-focus" aria-live="polite">API route</span>
+            <div class="knn-votes" aria-hidden="true">
+              <span style="--vote-color: #7ee7d6;"></span>
+              <span style="--vote-color: #f2c879;"></span>
+              <span style="--vote-color: #f48fb1;"></span>
+            </div>
+          </div>
+          <label class="knn-control" for="system-speed">
+            <span>Flow speed</span>
+            <input id="system-speed" type="range" min="1" max="5" step="1" value="3" autocomplete="off">
+          </label>
+        </div>
+        <div class="demo-links" aria-label="Demo evidence">
+          <a href="https://github.com/hannnnnnnny/yi-han-software-engineer/blob/main/app.js" target="_blank" rel="noopener noreferrer">
+            <i data-lucide="code-2" aria-hidden="true"></i>
+            Source
+          </a>
+          <a href="#project-renova">Java project</a>
+          <a href="#project-tilltally">TypeScript project</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section focus-section" id="work" aria-labelledby="work-title">
+      <div class="section-heading">
+        <p class="section-label">Profile</p>
+        <h2 id="work-title">From practical needs to working systems</h2>
+        <p>
+          My background in Business Analytics helps me notice real workflow
+          problems. My Master of IT work is where I turn those problems into
+          frontend screens, backend routes, data models, and deployable projects.
+        </p>
+      </div>
+      <div class="focus-grid">
+        <article>
+          <span class="focus-kicker">01</span>
+          <h3>User workflow</h3>
+          <p>
+            I start from what a person is trying to do: discover events, list an
+            item, import retail data, or get from a screen to a useful result.
+          </p>
+        </article>
+        <article>
+          <span class="focus-kicker">02</span>
+          <h3>Application structure</h3>
+          <p>
+            I care about clear routes, reusable services, validated inputs,
+            sensible state, and database models that match the product rules.
+          </p>
+        </article>
+        <article>
+          <span class="focus-kicker">03</span>
+          <h3>Inspectable delivery</h3>
+          <p>
+            I try to make projects easy to inspect with README files, screenshots,
+            test commands, local setup notes, and links to the relevant code.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section lifecycle-section" id="lifecycle" aria-labelledby="lifecycle-title">
+      <div class="section-heading">
+        <p class="section-label">Process</p>
+        <h2 id="lifecycle-title">How I approach small software projects</h2>
+        <p>
+          I like building one thin path end to end first, then improving the
+          interface, data model, and checks once the core workflow is visible.
+        </p>
+      </div>
+      <div class="lifecycle-layout">
+        <div class="lifecycle-steps" role="tablist" aria-label="Software project stages">
+          <button id="aidlc-tab-frame" class="active" type="button" role="tab" aria-controls="aidlc-panel-frame" aria-selected="true" data-lifecycle-target="frame">
+            <span>01</span>
+            Model
+          </button>
+          <button id="aidlc-tab-data" type="button" role="tab" aria-controls="aidlc-panel-data" aria-selected="false" data-lifecycle-target="data">
+            <span>02</span>
+            Route
+          </button>
+          <button id="aidlc-tab-build" type="button" role="tab" aria-controls="aidlc-panel-build" aria-selected="false" data-lifecycle-target="build">
+            <span>03</span>
+            Build
+          </button>
+          <button id="aidlc-tab-check" type="button" role="tab" aria-controls="aidlc-panel-check" aria-selected="false" data-lifecycle-target="check">
+            <span>04</span>
+            Verify
+          </button>
+        </div>
+        <div class="lifecycle-panels">
+          <article id="aidlc-panel-frame" class="active" role="tabpanel" aria-labelledby="aidlc-tab-frame" data-lifecycle-panel="frame">
+            <p class="panel-kicker">Problem first</p>
+            <h3>What does the system need to represent?</h3>
+            <p>
+              For a project like ReNova, I start by naming the real entities:
+              users, listings, offers, orders, reviews, and the rules that move
+              each one between states.
+            </p>
+          </article>
+          <article id="aidlc-panel-data" role="tabpanel" aria-labelledby="aidlc-tab-data" data-lifecycle-panel="data">
+            <p class="panel-kicker">API shape</p>
+            <h3>How should the interface talk to the backend?</h3>
+            <p>
+              I look for route names, payloads, validation, and response states
+              that make the frontend easier to reason about rather than hiding
+              product rules in click handlers.
+            </p>
+          </article>
+          <article id="aidlc-panel-build" role="tabpanel" aria-labelledby="aidlc-tab-build" data-lifecycle-panel="build">
+            <p class="panel-kicker">Small working version</p>
+            <h3>Make one path work from screen to storage.</h3>
+            <p>
+              I prefer a thin but complete workflow first: frontend, API,
+              storage, and one clear result. It exposes problems faster than a
+              large unfinished layout.
+            </p>
+          </article>
+          <article id="aidlc-panel-check" role="tabpanel" aria-labelledby="aidlc-tab-check" data-lifecycle-panel="check">
+            <p class="panel-kicker">Verification</p>
+            <h3>Check what a reviewer would try first.</h3>
+            <p>
+              I check setup steps, responsive layouts, form validation, broken
+              links, and whether the README gives another developer enough
+              context to run or inspect the work.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section" id="projects" aria-labelledby="projects-title">
       <div class="section-heading">
-        <p class="section-label">Selected projects</p>
-        <h2 id="projects-title">Three projects I would show first for software roles</h2>
+        <p class="section-label">Projects</p>
+        <h2 id="projects-title">Selected software engineering projects</h2>
         <p>
-          I chose projects that show end-to-end thinking: user workflow, frontend
-          state, backend structure, data persistence, deployment, and the habit
-          of writing README files that another developer can inspect.
+          These are the three projects I would show first for software
+          engineering roles. Each card links to the GitHub README so the
+          code and project notes are easy to inspect.
         </p>
       </div>
 
-      <article class="project-card featured">
-        <div>
-          <p class="project-type">TypeScript product system</p>
-          <h3>KiwiCue</h3>
-          <p>
-            A bilingual Auckland event discovery and reminder service for
-            helping people find concerts, theatre, markets, festivals, and
-            community events before they miss them.
-          </p>
-          <dl class="project-facts">
-            <div>
-              <dt>Why it matters</dt>
-              <dd>It is built around a real local information problem rather than a tutorial pattern.</dd>
-            </div>
-            <div>
-              <dt>Engineering focus</dt>
-              <dd>External API integration, environment configuration, deployment discipline, and user-facing search flow.</dd>
-            </div>
-          </dl>
-        </div>
-        <ul class="tags" aria-label="Technologies used">
-          <li>TypeScript</li>
-          <li>Web App</li>
-          <li>API Integration</li>
-          <li>Vercel</li>
-        </ul>
-        <div class="project-links">
-          <a href="https://kiwicue.vercel.app" target="_blank" rel="noopener noreferrer">Live site</a>
-          <a href="https://github.com/hannnnnnnny/kiwicue#readme" target="_blank" rel="noopener noreferrer">GitHub README</a>
-        </div>
-      </article>
+      <div class="projects-shell">
+        <div class="projects-main">
+          <div class="project-controls" aria-label="Filter selected projects">
+            <button class="active" type="button" aria-pressed="true" data-project-filter="all">All</button>
+            <button type="button" aria-pressed="false" data-project-filter="fullstack">Full stack</button>
+            <button type="button" aria-pressed="false" data-project-filter="java">Java</button>
+            <button type="button" aria-pressed="false" data-project-filter="typescript">TypeScript</button>
+          </div>
+          <p class="project-filter-status" id="project-filter-status" aria-live="polite">Showing all selected projects.</p>
 
-      <article class="project-card">
-        <div>
-          <p class="project-type">Java full-stack marketplace</p>
-          <h3>ReNova Second-Hand C2C Marketplace</h3>
-          <p>
-            A peer-to-peer second-hand marketplace with listing search, buyer
-            and seller flows, offers, orders, messaging, reviews, and account
-            state.
-          </p>
-          <dl class="project-facts">
-            <div>
-              <dt>Why it matters</dt>
-              <dd>Marketplace systems force careful thinking about state transitions and user roles.</dd>
-            </div>
-            <div>
-              <dt>Engineering focus</dt>
-              <dd>Spring Boot APIs, Vue interface, MySQL persistence, authentication, and domain modelling.</dd>
-            </div>
-          </dl>
-        </div>
-        <ul class="tags" aria-label="Technologies used">
-          <li>Java</li>
-          <li>Spring Boot</li>
-          <li>Vue</li>
-          <li>MySQL</li>
-          <li>REST API</li>
-        </ul>
-        <div class="project-links">
-          <a href="https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace#readme" target="_blank" rel="noopener noreferrer">GitHub README</a>
-          <a href="https://hannnnnnnny.github.io/ReNova-Second-Hand-C2C-Marketplace/" target="_blank" rel="noopener noreferrer">Project page</a>
-        </div>
-      </article>
+          <div class="project-list">
+            <article class="project-card project-card-featured" id="project-renova" data-project-groups="fullstack java" data-project-signal="Java full-stack marketplace" data-role-fit="Software engineer / full-stack engineer" data-proof="Spring Boot APIs, Vue UI, MySQL data model, authentication, marketplace state transitions" data-angle="Shows how I model realistic user roles, product states, and backend rules.">
+          <a class="project-thumb" href="https://hannnnnnnny.github.io/ReNova-Second-Hand-C2C-Marketplace/" target="_blank" rel="noopener noreferrer" aria-label="Open the live ReNova marketplace">
+            <img src="assets/previews/renova.png" alt="ReNova marketplace storefront preview" loading="lazy">
+            <span class="thumb-badge">Live</span>
+          </a>
+          <div class="project-main">
+            <p class="project-type">Java full-stack marketplace</p>
+            <h3>ReNova Second-Hand C2C Marketplace</h3>
+            <p>
+              A peer-to-peer second-hand marketplace with listings, search,
+              buyer-seller messaging, offers, orders, demo escrow states,
+              reviews, and user reputation.
+            </p>
+            <dl class="project-facts">
+              <div>
+                <dt>Problem</dt>
+                <dd>Marketplace workflows need clear state transitions across sellers, buyers, listings, offers, orders, and reviews.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Spring Boot APIs, Vue interface, MySQL persistence, JWT auth, tests, and a documented demo profile.</dd>
+              </div>
+            </dl>
+          </div>
+          <ul class="tags" aria-label="Technologies used">
+            <li>Java</li>
+            <li>Spring Boot</li>
+            <li>Vue 3</li>
+            <li>MySQL</li>
+            <li>REST API</li>
+            <li>JWT</li>
+          </ul>
+          <a class="project-link" href="https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="Read the ReNova README on GitHub">Read README</a>
+            </article>
 
-      <article class="project-card">
-        <div>
-          <p class="project-type">Campus booking workflow</p>
-          <h3>Study Room Booking System</h3>
-          <p>
-            A study computer booking demo where students can check live
-            workstation availability, reserve one device, and see reservation
-            state reflected across the interface.
-          </p>
-          <dl class="project-facts">
+            <article class="project-card" id="project-kiwicue" data-project-groups="fullstack typescript" data-project-signal="Local product workflow" data-role-fit="Software engineer / frontend product engineer" data-proof="TypeScript application, external API integration, environment configuration, Vercel deployment" data-angle="Turns a local discovery problem in Auckland into a product-shaped web application.">
+          <a class="project-thumb" href="https://github.com/hannnnnnnny/kiwicue/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="KiwiCue preview">
+            <img src="assets/previews/kiwicue.svg" alt="KiwiCue Auckland events discovery preview" loading="lazy">
+          </a>
+          <div class="project-main">
+            <p class="project-type">TypeScript event discovery app</p>
+            <h3>KiwiCue</h3>
+            <p>
+              A bilingual Auckland event discovery and reminder service for
+              helping people find concerts, theatre, markets, festivals, and
+              community events before they miss them.
+            </p>
+            <dl class="project-facts">
+              <div>
+                <dt>Problem</dt>
+                <dd>Local event information is scattered, and people often find out after an event has already passed.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>Server-only API key handling, environment setup, deployment notes, and a product workflow based on local needs.</dd>
+              </div>
+            </dl>
+          </div>
+          <ul class="tags" aria-label="Technologies used">
+            <li>TypeScript</li>
+            <li>Web App</li>
+            <li>API Integration</li>
+            <li>Vercel</li>
+            <li>Product UX</li>
+          </ul>
+          <a class="project-link" href="https://github.com/hannnnnnnny/kiwicue/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="Read the KiwiCue README on GitHub">Read README</a>
+            </article>
+
+            <article class="project-card" id="project-tilltally" data-project-groups="fullstack typescript" data-project-signal="TypeScript analytics product" data-role-fit="Software engineer / full-stack engineer" data-proof="React dashboard, Express API, PostgreSQL schema, Prisma ORM, Docker deployment" data-angle="Shows full-stack engineering through a real analytics product rather than a generic CRUD demo.">
+          <a class="project-thumb" href="https://github.com/hannnnnnnny/till-tally/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="TillTally dashboard preview">
+            <img src="assets/previews/tilltally.svg?v=2" alt="TillTally analytics dashboard preview" loading="lazy">
+          </a>
+          <div class="project-main">
+            <p class="project-type">TypeScript full-stack analytics system</p>
+            <h3>TillTally &mdash; Retail Business Analytics Dashboard</h3>
+            <p>
+              A full-stack analytics platform that turns retail sales and
+              inventory CSVs into KPI dashboards, product performance, inventory
+              risk, channel comparison, and weekly reports.
+            </p>
+            <dl class="project-facts">
+              <div>
+                <dt>Problem</dt>
+                <dd>Small retailers need a practical way to import messy data, understand performance, and spot inventory risk.</dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd>React, TypeScript, Express, PostgreSQL, Prisma, JWT auth, CSV import validation, Docker, and CI notes.</dd>
+              </div>
+            </dl>
+          </div>
+          <ul class="tags" aria-label="Technologies used">
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>PostgreSQL</li>
+            <li>Prisma</li>
+            <li>Docker</li>
+          </ul>
+          <a class="project-link" href="https://github.com/hannnnnnnny/till-tally/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="Read the TillTally README on GitHub">Read README</a>
+            </article>
+
+          </div>
+        </div>
+
+        <aside class="project-inspector" aria-labelledby="project-inspector-title" aria-live="polite">
+          <div class="inspector-header">
+            <p class="inspector-kicker">Selection signal</p>
+            <span class="inspector-current" data-inspector-current>ReNova</span>
+          </div>
+          <h3 id="project-inspector-title">What this proves</h3>
+          <p class="inspector-type">Java full-stack marketplace</p>
+          <dl class="inspector-signals">
             <div>
-              <dt>Why it matters</dt>
-              <dd>It turns a small campus need into a workflow with validation, state, feedback, and cancellation.</dd>
+              <dt>Role fit</dt>
+              <dd data-inspector-role>Software engineer / full-stack engineer</dd>
             </div>
             <div>
-              <dt>Engineering focus</dt>
-              <dd>Vue 3, Vite, local state persistence, UI rules, responsive screens, and testable reservation logic.</dd>
+              <dt>Proof</dt>
+              <dd data-inspector-proof>Spring Boot APIs, Vue UI, MySQL data model, authentication, marketplace state transitions</dd>
+            </div>
+            <div>
+              <dt>Interview angle</dt>
+              <dd data-inspector-angle>Shows how I model realistic user roles, product states, and backend rules.</dd>
             </div>
           </dl>
-        </div>
-        <ul class="tags" aria-label="Technologies used">
-          <li>Vue 3</li>
-          <li>Vite</li>
-          <li>JavaScript</li>
-          <li>State Design</li>
-          <li>Testing</li>
-        </ul>
-        <div class="project-links">
-          <a href="https://github.com/hannnnnnnny/study-room-booking-system#readme" target="_blank" rel="noopener noreferrer">GitHub README</a>
-        </div>
-      </article>
+          <div class="inspector-stack">
+            <span>Stack to mention</span>
+            <div class="inspector-tags" aria-label="Selected project tags"></div>
+          </div>
+          <a class="inspector-link" href="https://github.com/hannnnnnnny/ReNova-Second-Hand-C2C-Marketplace/blob/main/README.md" target="_blank" rel="noopener noreferrer">Inspect README</a>
+        </aside>
+      </div>
     </section>
 
-    <section class="section two-column" id="stack" aria-labelledby="stack-title">
-      <div>
-        <p class="section-label">Stack</p>
-        <h2 id="stack-title">Tools I use for software projects</h2>
+    <section class="section notes-section" id="notes" aria-labelledby="notes-title">
+      <div class="section-heading">
+        <p class="section-label">Notebook</p>
+        <h2 id="notes-title">Technical notes I want to turn into posts</h2>
+        <p>
+          Inspired by strong engineering blogs, I want this site to become more than a
+          list of projects. These are the notes I would like to publish as I keep
+          learning and building.
+        </p>
       </div>
-      <div class="stack-grid">
-        <section>
-          <h3>Frontend</h3>
-          <p>Vue, React, Svelte, HTML, CSS, JavaScript, TypeScript, Vite, responsive interfaces.</p>
-        </section>
-        <section>
-          <h3>Backend</h3>
-          <p>Java, Spring Boot, Node.js, Express, REST APIs, authentication basics, service structure.</p>
-        </section>
-        <section>
-          <h3>Database</h3>
-          <p>MySQL, PostgreSQL, SQL, schema design, Prisma, relational modelling, filtering queries.</p>
-        </section>
-        <section>
-          <h3>Practice</h3>
-          <p>Git, GitHub, npm, Maven, environment setup, debugging, README writing, basic automated checks.</p>
-        </section>
+      <div class="note-list">
+        <article class="note-card">
+          <p class="note-meta">Planned note</p>
+          <h3>How I modelled marketplace states in ReNova</h3>
+          <p>Listings, offers, orders, reviews, and why state transitions matter in practical full-stack applications.</p>
+        </article>
+        <article class="note-card">
+          <p class="note-meta">Planned note</p>
+          <h3>What a README needs before a project is easy to review</h3>
+          <p>Screenshots, setup steps, environment notes, known limits, and the small details that help another developer trust the work.</p>
+        </article>
+        <article class="note-card">
+          <p class="note-meta">Planned note</p>
+          <h3>Building one thin full-stack path before expanding features</h3>
+          <p>Why I like making one route, one screen, one database path, and one testable result work before polishing the whole app.</p>
+        </article>
+        <article class="note-card">
+          <p class="note-meta">Planned note</p>
+          <h3>API keys, deployment notes, and environment discipline in KiwiCue</h3>
+          <p>What I learned from keeping third-party API keys server-side and documenting deployment steps clearly.</p>
+        </article>
+        <article class="note-card">
+          <p class="note-meta">Planned note</p>
+          <h3>Using analytics background to design better software workflows</h3>
+          <p>How business questions can help shape forms, dashboards, filters, and reports without making the software feel vague.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section two-column" id="about" aria-labelledby="about-title">
-      <div>
-        <p class="section-label">About</p>
-        <h2 id="about-title">A practical route into software engineering</h2>
+    <section class="section two-column skills-section" id="skills" aria-labelledby="skills-title">
+      <div class="skills-intro">
+        <p class="section-label">Skills</p>
+        <h2 id="skills-title">Tools I use</h2>
+        <p class="skills-lede">A focused stack for full-stack applications, APIs, databases, testing, and delivery.</p>
+        <div class="skill-map" aria-label="Capability map">
+          <div class="skill-map-header">
+            <span>Capability map</span>
+            <span id="skill-selection-state">Preview</span>
+          </div>
+          <canvas id="skill-map-canvas" width="560" height="380" aria-hidden="true"></canvas>
+          <div class="skill-evidence" aria-live="polite">
+            <div class="skill-evidence-title">
+              <span>Active tool</span>
+              <strong id="skill-active-name">Java</strong>
+            </div>
+            <p id="skill-map-status">Builds backend services, domain logic, and API foundations for full-stack projects.</p>
+            <div class="skill-projects">
+              <span>Evidence</span>
+              <div id="skill-project-links">
+                <a href="#project-renova">ReNova</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="section-copy">
-        <p>
-          My first degree is in Business Analytics, and I am now studying a
-          Master of IT. That mix makes me interested in software that has a clear
-          purpose: a user needs something, the system needs to model it, and the
-          interface needs to make the next step obvious.
-        </p>
-        <p>
-          I am still growing as a developer, so I care about projects that can be
-          inspected honestly: clear README files, understandable code structure,
-          sensible trade-offs, and features that work from one end to the other.
-        </p>
+      <div class="skills-grid" aria-label="Tool icons by capability">
+        <section class="tool-group" aria-labelledby="frontend-title">
+          <div class="tool-group-heading">
+            <h3 id="frontend-title">Frontend</h3>
+            <span>08</span>
+          </div>
+          <div class="tool-list">
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="React" aria-label="React" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>React</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="TypeScript" aria-label="TypeScript" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>TypeScript</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="Vue" aria-label="Vue" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Vue</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="Svelte" aria-label="Svelte" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Svelte</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="HTML5" aria-label="HTML5" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>HTML5</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="CSS3" aria-label="CSS3" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>CSS3</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="Vite" aria-label="Vite" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Vite</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Frontend" data-tool="Tailwind" aria-label="Tailwind CSS" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Tailwind</span>
+            </button>
+          </div>
+        </section>
+        <section class="tool-group tool-group-backend" aria-labelledby="backend-title">
+          <div class="tool-group-heading">
+            <h3 id="backend-title">Backend</h3>
+            <span>06</span>
+          </div>
+          <div class="tool-list">
+            <button class="tool-chip" type="button" data-skill-card="Backend" data-tool="Java" aria-label="Java" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Java</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Backend" data-tool="Spring Boot" aria-label="Spring Boot" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Spring</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Backend" data-tool="Node.js" aria-label="Node.js" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Node.js</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Backend" data-tool="Express" aria-label="Express" aria-pressed="false">
+              <img class="icon-mono" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Express</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Backend" data-tool="REST API" aria-label="REST APIs" aria-pressed="false">
+              <i class="tool-lucide" data-lucide="braces" aria-hidden="true"></i>
+              <span>REST API</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Backend" data-tool="Maven" aria-label="Maven" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/maven/maven-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Maven</span>
+            </button>
+          </div>
+        </section>
+        <section class="tool-group tool-group-database" aria-labelledby="database-title">
+          <div class="tool-group-heading">
+            <h3 id="database-title">Database</h3>
+            <span>06</span>
+          </div>
+          <div class="tool-list">
+            <button class="tool-chip" type="button" data-skill-card="Database" data-tool="PostgreSQL" aria-label="PostgreSQL" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>PostgreSQL</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Database" data-tool="Prisma" aria-label="Prisma ORM" aria-pressed="false">
+              <img class="icon-mono" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Prisma</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Database" data-tool="MySQL" aria-label="MySQL" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>MySQL</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Database" data-tool="MongoDB" aria-label="MongoDB" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>MongoDB</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Database" data-tool="SQLite" aria-label="SQLite" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>SQLite</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Database" data-tool="SQL" aria-label="SQL" aria-pressed="false">
+              <i class="tool-lucide" data-lucide="database" aria-hidden="true"></i>
+              <span>SQL</span>
+            </button>
+          </div>
+        </section>
+        <section class="tool-group tool-group-delivery" aria-labelledby="engineering-title">
+          <div class="tool-group-heading">
+            <h3 id="engineering-title">Engineering / Delivery</h3>
+            <span>08</span>
+          </div>
+          <div class="tool-list">
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="JavaScript" aria-label="JavaScript" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>JavaScript</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="Git" aria-label="Git" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Git</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="GitHub" aria-label="GitHub" aria-pressed="false">
+              <img class="icon-mono" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>GitHub</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="npm" aria-label="npm" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>npm</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="Testing" aria-label="Testing" aria-pressed="false">
+              <i class="tool-lucide" data-lucide="check-check" aria-hidden="true"></i>
+              <span>Testing</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="Playwright" aria-label="Playwright" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Playwright</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="E2E testing" aria-label="End-to-end testing" aria-pressed="false">
+              <i class="tool-lucide" data-lucide="route" aria-hidden="true"></i>
+              <span>E2E testing</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Engineering" data-tool="Docker" aria-label="Docker" aria-pressed="false">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="" aria-hidden="true" loading="lazy">
+              <span>Docker</span>
+            </button>
+          </div>
+        </section>
+        <section class="tool-group tool-group-shared" aria-labelledby="product-thinking-title">
+          <div class="tool-group-heading">
+            <h3 id="product-thinking-title">Product thinking</h3>
+            <span>02</span>
+          </div>
+          <div class="tool-list">
+            <button class="tool-chip" type="button" data-skill-card="Product" data-tool="AIDLC" aria-label="AIDLC" aria-pressed="false">
+              <i class="tool-lucide" data-lucide="workflow" aria-hidden="true"></i>
+              <span>AIDLC</span>
+            </button>
+            <button class="tool-chip" type="button" data-skill-card="Product" data-tool="Tool design" aria-label="Tool design" aria-pressed="false">
+              <i class="tool-lucide" data-lucide="wrench" aria-hidden="true"></i>
+              <span>Tool design</span>
+            </button>
+          </div>
+        </section>
       </div>
     </section>
 
     <section class="section contact-section" id="contact" aria-labelledby="contact-title">
       <div>
         <p class="section-label">Contact</p>
-        <h2 id="contact-title">I am open to software engineering internships, graduate roles, and feedback.</h2>
+        <h2 id="contact-title">Open to graduate software engineering roles in New Zealand.</h2>
       </div>
-      <ul class="contact-list">
-        <li><a href="mailto:harryhaber606@gmail.com">harryhaber606@gmail.com</a></li>
-        <li><a href="https://github.com/hannnnnnnny" target="_blank" rel="noopener noreferrer">github.com/hannnnnnnny</a></li>
-        <li><a href="https://www.linkedin.com/in/yi-han-29ab28323" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="https://hannnnnnnny.github.io/yi-han-data-analytics/">Data analytics portfolio</a></li>
-      </ul>
+      <div class="section-copy">
+        <p>
+          I am especially interested in teams building web applications,
+          data-backed products, internal tools, and practical software that
+          solves everyday workflow problems.
+        </p>
+        <ul class="contact-list">
+          <li><a href="mailto:harryhaber606@gmail.com">harryhaber606@gmail.com</a></li>
+          <li><a href="https://github.com/hannnnnnnny" target="_blank" rel="noopener noreferrer">github.com/hannnnnnnny</a></li>
+          <li><a href="https://www.linkedin.com/in/yi-han-29ab28323" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="assets/YiHan_Resume.pdf" type="application/pdf">Resume PDF</a></li>
+        </ul>
+      </div>
     </section>
   </main>
+
+  <div class="command-backdrop" data-command-backdrop hidden></div>
+  <section class="command-palette" id="command-palette" role="dialog" aria-modal="true" aria-labelledby="command-title" hidden>
+    <div class="command-shell">
+      <div class="command-header">
+        <div>
+          <p class="command-kicker">Quick launch</p>
+          <h2 id="command-title">Move through the portfolio</h2>
+        </div>
+        <button type="button" class="command-close" data-command-close aria-label="Close command palette">Esc</button>
+      </div>
+      <label class="command-search">
+        <span>Search sections, projects, and links</span>
+        <input id="command-input" type="search" autocomplete="off" placeholder="Try ReNova, KiwiCue, TillTally, skills...">
+      </label>
+      <div class="command-list" data-command-list>
+        <button type="button" data-command-item data-command-label="Profile hero overview" data-command-target="#top">
+          <span>Profile</span><small>Start at the hero and system sketch</small>
+        </button>
+        <button type="button" data-command-item data-command-label="Projects GitHub ReNova KiwiCue TillTally software engineering" data-command-target="#projects">
+          <span>Projects</span><small>Inspect the selected software projects</small>
+        </button>
+        <button type="button" data-command-item data-command-label="Process software workflow modelling routing build verify" data-command-target="#lifecycle">
+          <span>Process</span><small>See how I approach small software projects</small>
+        </button>
+        <button type="button" data-command-item data-command-label="Skills frontend backend database engineering delivery testing" data-command-target="#skills">
+          <span>Skills</span><small>Open the engineering capability map</small>
+        </button>
+        <button type="button" data-command-item data-command-label="Resume PDF CV Yi Han" data-command-target="assets/YiHan_Resume.pdf">
+          <span>Resume</span><small>Open the resume PDF</small>
+        </button>
+        <button type="button" data-command-item data-command-label="Email contact harryhaber606 gmail" data-command-target="mailto:harryhaber606@gmail.com">
+          <span>Email</span><small>Start a message</small>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Yi Han. Static GitHub Pages, enhanced with a small vanilla JavaScript layer.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script src="app.js?v=20260627-pixel" defer></script>
 </body>
 </html>
