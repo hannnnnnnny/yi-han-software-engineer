@@ -109,22 +109,22 @@
 
       <aside class="hero-demo" aria-labelledby="demo-title">
         <div class="hero-demo-heading">
-          <p class="eyebrow">Interactive system sketch</p>
-          <h2 id="demo-title">Follow a request through the stack.</h2>
-          <p>A small JavaScript canvas showing how frontend, API, database, and checks fit together.</p>
+          <p class="eyebrow">Interactive PR workflow</p>
+          <h2 id="demo-title">See collaboration move through a pull request.</h2>
+          <p>A small JavaScript canvas showing how branch work, commits, review, CI, and merge decisions fit together.</p>
         </div>
-        <div class="model-widget" aria-label="Interactive full-stack request flow">
+        <div class="model-widget" aria-label="Interactive collaborative pull request workflow">
           <div class="model-widget-header">
-            <span>Full-stack flow</span>
-            <output id="system-flow-output">request path</output>
+            <span>Collaborative PR flow</span>
+            <output id="system-flow-output">review active</output>
           </div>
           <div class="model-canvas-wrap">
             <canvas id="system-canvas" width="520" height="360" role="img"
-              aria-label="Animated full-stack flow from browser to frontend, API, database, tests, and deployment checks."></canvas>
+              aria-label="Animated collaborative pull request workflow from branch to commit, push, open pull request, review, CI checks, and merge."></canvas>
           </div>
           <div class="knn-readout system-readout">
-            <span class="knn-pred-label">Current focus</span>
-            <span class="knn-pred" id="system-focus" aria-live="polite">API route</span>
+            <span class="knn-pred-label">Current stage</span>
+            <span class="knn-pred" id="system-focus" aria-live="polite">Code review</span>
             <div class="knn-votes" aria-hidden="true">
               <span style="--vote-color: #7ee7d6;"></span>
               <span style="--vote-color: #f2c879;"></span>
@@ -141,7 +141,7 @@
             <i data-lucide="code-2" aria-hidden="true"></i>
             Source
           </a>
-          <a href="#project-renova">Java project</a>
+          <a href="#project-renova">ReNova project</a>
           <a href="#project-tilltally">TypeScript project</a>
         </div>
       </aside>

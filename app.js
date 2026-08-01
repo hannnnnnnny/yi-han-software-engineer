@@ -828,7 +828,7 @@
     draw(performance.now()); // first paint even when reduced motion
   }
 
-  /* ---------- Software system flow canvas ---------- */
+  /* ---------- Collaborative pull request canvas ---------- */
   function initSystemFlow() {
     const canvas = $("#system-canvas");
     if (!canvas) return;
@@ -838,17 +838,18 @@
     const speed = $("#system-speed");
     const output = $("#system-flow-output");
     const flow = [
-      { key: "Browser", x: 0.14, y: 0.26, color: "#7ee7d6" },
-      { key: "UI state", x: 0.38, y: 0.18, color: "#aebdff" },
-      { key: "API route", x: 0.62, y: 0.32, color: "#f2c879" },
-      { key: "Service", x: 0.8, y: 0.56, color: "#f48fb1" },
-      { key: "Database", x: 0.54, y: 0.76, color: "#a7b8c7" },
-      { key: "Checks", x: 0.25, y: 0.66, color: "#dce5ec" },
+      { key: "Branch", status: "branch ready", x: 0.2, y: 0.32, color: "#7ee7d6" },
+      { key: "Commit", status: "commit added", x: 0.36, y: 0.18, color: "#aebdff" },
+      { key: "Push", status: "push sent", x: 0.56, y: 0.28, color: "#f2c879" },
+      { key: "Open PR", status: "pull request open", x: 0.78, y: 0.3, color: "#f48fb1" },
+      { key: "Review", status: "review active", x: 0.78, y: 0.64, color: "#f7a8c7" },
+      { key: "CI checks", status: "checks running", x: 0.54, y: 0.78, color: "#a7b8c7" },
+      { key: "Merge", status: "ready to merge", x: 0.24, y: 0.68, color: "#dce5ec" },
     ];
     let running = false;
     let rafId = 0;
     let startTime = performance.now();
-    let currentIndex = 2;
+    let currentIndex = 4;
 
     function resize() {
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -885,6 +886,21 @@
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = "#080d12";
       ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = "rgba(236, 242, 246, 0.34)";
+      ctx.font = "700 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      ctx.fillText("AUTHOR", 18, Math.max(20, height * 0.16));
+      ctx.fillText("REVIEW + CI", 18, Math.max(44, height * 0.58));
+      ctx.strokeStyle = "rgba(220, 229, 236, 0.08)";
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 8]);
+      ctx.beginPath();
+      ctx.moveTo(14, height * 0.5);
+      ctx.lineTo(width - 14, height * 0.5);
+      ctx.stroke();
+      ctx.setLineDash([]);
 
       ctx.lineWidth = 2;
       for (let index = 0; index < flow.length; index += 1) {
@@ -926,7 +942,7 @@
       if (currentIndex !== segment % flow.length) {
         currentIndex = segment % flow.length;
         if (focus) focus.textContent = flow[currentIndex].key;
-        if (output) output.textContent = `${flow[currentIndex].key.toLowerCase()} active`;
+        if (output) output.textContent = flow[currentIndex].status;
       }
 
       if (running) rafId = requestAnimationFrame(draw);
