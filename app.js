@@ -11,6 +11,15 @@
   const finePointer = window.matchMedia("(pointer: fine)").matches;
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+  const canvasTheme = {
+    background: "#f8fbf8",
+    ink: "#173c30",
+    muted: "#596a62",
+    primary: "#245746",
+    secondary: "#356f69",
+    rose: "#d97898",
+    amber: "#a56f29",
+  };
 
   document.documentElement.classList.add("js-enabled");
 
@@ -402,11 +411,11 @@
       "GitHub Actions": { text: "Runs TillTally's CI pipeline for builds and checks on every push.", projects: ["tilltally"] },
     };
     const nodes = [
-      { key: "Frontend", label: "UI", x: 0.18, y: 0.3, color: "#7ee7d6", text: "Frontend turns product workflows into screens, states, and responsive interactions." },
-      { key: "Backend", label: "API", x: 0.72, y: 0.25, color: "#f2c879", text: "Backend work gives the app routes, services, auth, and domain rules." },
-      { key: "Database", label: "SQL", x: 0.76, y: 0.72, color: "#a7b8c7", text: "Database thinking keeps projects grounded in schema, queries, and relationships." },
-      { key: "Engineering", label: "ENG", x: 0.26, y: 0.75, color: "#dce5ec", text: "Engineering tools make the work reproducible, testable, and easier to review." },
-      { key: "Product", label: "WHY", x: 0.48, y: 0.5, color: "#f48fb1", text: "Product thinking helps me choose features around real needs rather than filler." },
+      { key: "Frontend", label: "UI", x: 0.18, y: 0.3, color: canvasTheme.primary, text: "Frontend turns product workflows into screens, states, and responsive interactions." },
+      { key: "Backend", label: "API", x: 0.72, y: 0.25, color: canvasTheme.amber, text: "Backend work gives the app routes, services, auth, and domain rules." },
+      { key: "Database", label: "SQL", x: 0.76, y: 0.72, color: canvasTheme.secondary, text: "Database thinking keeps projects grounded in schema, queries, and relationships." },
+      { key: "Engineering", label: "ENG", x: 0.26, y: 0.75, color: canvasTheme.muted, text: "Engineering tools make the work reproducible, testable, and easier to review." },
+      { key: "Product", label: "WHY", x: 0.48, y: 0.5, color: canvasTheme.rose, text: "Product thinking helps me choose features around real needs rather than filler." },
     ];
     const links = [
       ["Frontend", "Backend"], ["Backend", "Database"], ["Frontend", "Product"],
@@ -485,7 +494,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
 
-      ctx.fillStyle = "rgba(5, 8, 12, 0.72)";
+      ctx.fillStyle = canvasTheme.background;
       ctx.fillRect(0, 0, w, h);
 
       const pulse = reduceMotion ? 0 : Math.sin(time * 0.003) * 0.35 + 0.65;
@@ -496,7 +505,7 @@
         ctx.beginPath();
         ctx.moveTo(a.x * w, a.y * h);
         ctx.lineTo(b.x * w, b.y * h);
-        ctx.strokeStyle = active ? `rgba(126, 231, 214, ${0.22 + pulse * 0.28})` : "rgba(148, 163, 184, 0.12)";
+        ctx.strokeStyle = active ? `rgba(36, 87, 70, ${0.22 + pulse * 0.28})` : "rgba(89, 106, 98, 0.18)";
         ctx.lineWidth = active ? 1.8 : 1;
         ctx.stroke();
       });
@@ -506,14 +515,14 @@
         const y = node.y * h;
         const active = node.key === activeKey;
         ctx.beginPath();
-        ctx.fillStyle = active ? hexToRgba(node.color, 0.24) : "rgba(148, 163, 184, 0.08)";
+        ctx.fillStyle = active ? hexToRgba(node.color, 0.18) : "rgba(89, 106, 98, 0.08)";
         ctx.arc(x, y, active ? 20 + pulse * 3 : 16, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
         ctx.fillStyle = node.color;
         ctx.arc(x, y, active ? 6 : 4.5, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = active ? "#f4f7fb" : "#9aa7b1";
+        ctx.fillStyle = active ? canvasTheme.ink : canvasTheme.muted;
         ctx.font = "700 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
         ctx.textAlign = "center";
         ctx.fillText(node.label, x, y + 32);
@@ -553,7 +562,7 @@
   /* ---------- Interactive KNN classifier ---------- */
   const KNN = {
     labels: ["A", "B", "C"],
-    palette: { A: "#f48fb1", B: "#7dd3fc", C: "#7ee7d6" },
+    palette: { A: canvasTheme.rose, B: canvasTheme.secondary, C: canvasTheme.primary },
     names: { A: "Cluster A", B: "Cluster B", C: "Cluster C" },
     points: [
       { x: 0.18, y: 0.30, label: "A" }, { x: 0.24, y: 0.40, label: "A" },
@@ -668,7 +677,7 @@
       }
 
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#0a0e13";
+      ctx.fillStyle = canvasTheme.background;
       ctx.fillRect(0, 0, w, h);
 
       buildDecisionGrid(KNN.k);
@@ -683,7 +692,7 @@
       }
 
       // faint plot frame
-      ctx.strokeStyle = "rgba(148,163,184,0.14)";
+      ctx.strokeStyle = "rgba(89,106,98,0.22)";
       ctx.lineWidth = 1;
       ctx.strokeRect(KNN.pad, KNN.pad, w - KNN.pad * 2, h - KNN.pad * 2);
 
@@ -724,7 +733,7 @@
         }
         ctx.beginPath();
         ctx.fillStyle = KNN.palette[p.label];
-        ctx.strokeStyle = "rgba(8,12,18,0.85)";
+        ctx.strokeStyle = "rgba(255,255,255,0.92)";
         ctx.lineWidth = 1.5;
         ctx.arc(s.x, s.y, 5, 0, Math.PI * 2);
         ctx.fill();
@@ -739,7 +748,7 @@
       ctx.arc(probe.x, probe.y, 18 + pulse, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.fillStyle = "#f4f7fb";
+      ctx.fillStyle = "#ffffff";
       ctx.strokeStyle = KNN.palette[pred];
       ctx.lineWidth = 3;
       ctx.arc(probe.x, probe.y, 7, 0, Math.PI * 2);
