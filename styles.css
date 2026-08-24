@@ -372,16 +372,16 @@ p {
 
 .hero-statement {
   max-width: 700px;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.15rem;
   color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 1.6rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.15rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.08;
 }
 
 .hero-context {
-  max-width: 560px;
+  max-width: 650px;
   margin-bottom: 1.5rem;
   color: var(--text);
   font-size: 1.05rem;
@@ -1875,7 +1875,7 @@ dd {
   }
 
   .hero-statement {
-    font-size: 1.45rem;
+    font-size: 2.15rem;
   }
 
   .hero-context {
@@ -1968,6 +1968,10 @@ dd {
 @media (max-width: 420px) {
   h1 {
     font-size: 3.5rem;
+  }
+
+  .hero-statement {
+    font-size: 1.85rem;
   }
 
   .hero-button {
