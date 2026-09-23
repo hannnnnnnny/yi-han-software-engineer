@@ -2,7 +2,7 @@
  * Yi Han - portfolio interactions (vanilla, no framework).
  * Modules: process tabs, scroll progress, section nav,
  * scroll reveal, command palette,
- * skill map, and an interactive pull request workflow.
+ * skill map, and a live code-to-page preview.
  */
 (() => {
   "use strict";
@@ -232,6 +232,7 @@
     const selectionState = $("#skill-selection-state");
     const projectLinks = $("#skill-project-links");
     const projects = {
+      pansub: { label: "PanSub", href: "#project-pansub" },
       renova: { label: "ReNova", href: "#project-renova" },
       kiwicue: { label: "KiwiCue", href: "#project-kiwicue" },
       tilltally: { label: "TillTally", href: "#project-tilltally" },
@@ -259,7 +260,7 @@
       MongoDB: { text: "Supports document-oriented data models for flexible application prototypes.", projects: ["github"] },
       SQLite: { text: "Provides a compact local database option for scripts and portable development workflows.", projects: ["github"] },
       SQL: { text: "Connects filters, relationships, reports, and application state to stored data.", projects: ["renova", "tilltally"] },
-      JavaScript: { text: "Powers this portfolio's canvas, command palette, and interaction state.", projects: ["portfolio"] },
+      JavaScript: { text: "Powers PanSub's subtitle overlay and this portfolio's interactions.", projects: ["pansub", "portfolio"] },
       Git: { text: "Keeps project history reviewable across the portfolio and selected repositories.", projects: ["github"] },
       GitHub: { text: "Makes source, READMEs, project history, and reviewable changes easy to inspect.", projects: ["github"] },
       npm: { text: "Manages JavaScript tooling and repeatable local project setup.", projects: ["tilltally", "portfolio"] },
@@ -419,359 +420,108 @@
     });
   }
 
-  /* ---------- Interactive KNN classifier ---------- */
-  const KNN = {
-    labels: ["A", "B", "C"],
-    palette: { A: canvasTheme.rose, B: canvasTheme.secondary, C: canvasTheme.primary },
-    names: { A: "Cluster A", B: "Cluster B", C: "Cluster C" },
-    points: [
-      { x: 0.18, y: 0.30, label: "A" }, { x: 0.24, y: 0.40, label: "A" },
-      { x: 0.31, y: 0.24, label: "A" }, { x: 0.35, y: 0.37, label: "A" },
-      { x: 0.41, y: 0.30, label: "A" }, { x: 0.22, y: 0.20, label: "A" },
-      { x: 0.64, y: 0.24, label: "B" }, { x: 0.73, y: 0.33, label: "B" },
-      { x: 0.79, y: 0.23, label: "B" }, { x: 0.83, y: 0.41, label: "B" },
-      { x: 0.69, y: 0.47, label: "B" }, { x: 0.86, y: 0.30, label: "B" },
-      { x: 0.26, y: 0.72, label: "C" }, { x: 0.37, y: 0.64, label: "C" },
-      { x: 0.46, y: 0.79, label: "C" }, { x: 0.55, y: 0.68, label: "C" },
-      { x: 0.60, y: 0.82, label: "C" }, { x: 0.69, y: 0.71, label: "C" },
-    ],
-    grid: { cols: 30, rows: 22, cells: null, k: -1 },
-    probe: { x: 0.52, y: 0.5 },
-    pad: 24,
-    k: 5,
-    lastPred: null,
-    lastInteraction: 0,
-    following: false,
-  };
+  /* ---------- Live code-to-page preview ---------- */
+  function initBuildDemo() {
+    const widget = $("#build-widget");
+    const preview = $("#build-preview");
+    const toggle = $("#build-toggle");
+    const replay = $("#build-replay");
+    if (!widget || !preview || !toggle || !replay) return;
 
-  function knnClassify(nx, ny, k) {
-    const nearest = KNN.points
-      .map((p) => ({ label: p.label, d: (p.x - nx) ** 2 + (p.y - ny) ** 2 }))
-      .sort((a, b) => a.d - b.d)
-      .slice(0, k);
-
-    const votes = { A: 0, B: 0, C: 0 };
-    const weight = { A: 0, B: 0, C: 0 };
-    nearest.forEach((n, i) => {
-      votes[n.label] += 1;
-      weight[n.label] += k - i; // tie-break toward closer neighbours
-    });
-    let best = "A";
-    KNN.labels.forEach((label) => {
-      if (votes[label] > votes[best] || (votes[label] === votes[best] && weight[label] > weight[best])) {
-        best = label;
-      }
-    });
-    return { label: best, votes };
-  }
-
-  function buildDecisionGrid(k) {
-    if (KNN.grid.k === k && KNN.grid.cells) return;
-    const { cols, rows } = KNN.grid;
-    const cells = new Array(cols * rows);
-    for (let r = 0; r < rows; r += 1) {
-      for (let c = 0; c < cols; c += 1) {
-        const nx = (c + 0.5) / cols;
-        const ny = (r + 0.5) / rows;
-        cells[r * cols + c] = knnClassify(nx, ny, k).label;
-      }
-    }
-    KNN.grid.cells = cells;
-    KNN.grid.k = k;
-  }
-
-  function initKnn() {
-    const canvas = $("#model-canvas");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const kInput = $("#knn-k");
-    const kOutput = $("#knn-k-output");
-    const predEl = $("#knn-pred");
-    const votesEl = $("#knn-votes");
-
-    const toScreen = (w, h, p) => ({
-      x: KNN.pad + p.x * (w - KNN.pad * 2),
-      y: KNN.pad + p.y * (h - KNN.pad * 2),
-    });
-    const toNorm = (w, h, px, py) => ({
-      x: clamp((px - KNN.pad) / (w - KNN.pad * 2), 0, 1),
-      y: clamp((py - KNN.pad) / (h - KNN.pad * 2), 0, 1),
+    const lines = $$(".code-row", widget);
+    const snippets = lines.map((line) => line.dataset.code || "");
+    const counter = $(".build-footer span", widget);
+    lines.forEach((line, index) => {
+      line.dataset.line = String(index + 1).padStart(2, "0");
     });
 
-    function updateReadout() {
-      const { label, votes } = knnClassify(KNN.probe.x, KNN.probe.y, KNN.k);
-      const signature = `${label}:${votes.A}:${votes.B}:${votes.C}:${KNN.k}`;
-      if (signature === KNN.lastPred) return;
-      KNN.lastPred = signature;
-
-      if (predEl) {
-        predEl.textContent = KNN.names[label];
-        predEl.style.color = KNN.palette[label];
-      }
-      if (votesEl) {
-        votesEl.innerHTML = KNN.labels
-          .map((l) => {
-            const pct = (votes[l] / KNN.k) * 100;
-            return `<span class="knn-vote"><span class="knn-bar">` +
-              `<i style="width:${pct}%;background:${KNN.palette[l]}"></i></span>` +
-              `<b>${l} &middot; ${votes[l]}</b></span>`;
-          })
-          .join("");
-      }
+    if (reduceMotion) {
+      toggle.hidden = true;
+      replay.hidden = true;
+      return;
     }
 
-    function draw(time) {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w = Math.max(rect.width, 240);
-      const h = Math.max(rect.height, 170);
-      if (canvas.width !== Math.round(w * dpr)) canvas.width = Math.round(w * dpr);
-      if (canvas.height !== Math.round(h * dpr)) canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    let timer = 0;
+    let lineIndex = 0;
+    let charIndex = 0;
+    let paused = false;
+    let visible = !("IntersectionObserver" in window);
 
-      // idle auto-orbit so the widget feels alive
-      if (!reduceMotion && !KNN.following && time - KNN.lastInteraction > 2200) {
-        const t = time * 0.00018;
-        KNN.probe.x = 0.5 + 0.3 * Math.sin(t * 0.9);
-        KNN.probe.y = 0.5 + 0.26 * Math.sin(t * 1.33 + 0.7);
-      }
+    function clearTimer() {
+      window.clearTimeout(timer);
+      timer = 0;
+    }
 
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = canvasTheme.background;
-      ctx.fillRect(0, 0, w, h);
-
-      buildDecisionGrid(KNN.k);
-      const { cols, rows, cells } = KNN.grid;
-      const cellW = (w - KNN.pad * 2) / cols;
-      const cellH = (h - KNN.pad * 2) / rows;
-      for (let r = 0; r < rows; r += 1) {
-        for (let c = 0; c < cols; c += 1) {
-          ctx.fillStyle = hexToRgba(KNN.palette[cells[r * cols + c]], 0.1);
-          ctx.fillRect(KNN.pad + c * cellW, KNN.pad + r * cellH, cellW + 0.6, cellH + 0.6);
-        }
-      }
-
-      // faint plot frame
-      ctx.strokeStyle = "rgba(110,110,115,0.22)";
-      ctx.lineWidth = 1;
-      ctx.strokeRect(KNN.pad, KNN.pad, w - KNN.pad * 2, h - KNN.pad * 2);
-
-      const probe = toScreen(w, h, KNN.probe);
-      const neighbours = KNN.points
-        .map((p) => {
-          const s = toScreen(w, h, p);
-          return { p, s, d: Math.hypot(s.x - probe.x, s.y - probe.y) };
-        })
-        .sort((a, b) => a.d - b.d)
-        .slice(0, KNN.k);
-      const nearestSet = new Set(neighbours.map((n) => n.p));
-
-      // animated neighbour links
-      const dash = reduceMotion ? 0 : (time * 0.03) % 12;
-      neighbours.forEach(({ s, p }) => {
-        ctx.beginPath();
-        ctx.strokeStyle = hexToRgba(KNN.palette[p.label], 0.6);
-        ctx.lineWidth = 1.4;
-        ctx.setLineDash([5, 5]);
-        ctx.lineDashOffset = -dash;
-        ctx.moveTo(probe.x, probe.y);
-        ctx.lineTo(s.x, s.y);
-        ctx.stroke();
+    function reset() {
+      lines.forEach((line) => {
+        line.textContent = "";
+        line.classList.remove("is-typing");
       });
-      ctx.setLineDash([]);
-
-      // data points
-      KNN.points.forEach((p) => {
-        const s = toScreen(w, h, p);
-        const isNear = nearestSet.has(p);
-        if (isNear) {
-          ctx.beginPath();
-          ctx.strokeStyle = hexToRgba(KNN.palette[p.label], 0.55);
-          ctx.lineWidth = 2;
-          ctx.arc(s.x, s.y, 9, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-        ctx.beginPath();
-        ctx.fillStyle = KNN.palette[p.label];
-        ctx.strokeStyle = "rgba(255,255,255,0.92)";
-        ctx.lineWidth = 1.5;
-        ctx.arc(s.x, s.y, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      });
-
-      // probe, coloured by prediction
-      const pred = knnClassify(KNN.probe.x, KNN.probe.y, KNN.k).label;
-      const pulse = reduceMotion ? 0 : Math.sin(time * 0.004) * 2;
-      ctx.beginPath();
-      ctx.fillStyle = hexToRgba(KNN.palette[pred], 0.16);
-      ctx.arc(probe.x, probe.y, 18 + pulse, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.fillStyle = "#ffffff";
-      ctx.strokeStyle = KNN.palette[pred];
-      ctx.lineWidth = 3;
-      ctx.arc(probe.x, probe.y, 7, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-
-      updateReadout();
+      lineIndex = 0;
+      charIndex = 0;
+      preview.dataset.stage = "0";
+      if (counter) counter.textContent = "00 / 04";
     }
 
-    let rafId = 0;
-    let running = false;
-    const loop = (time) => {
-      draw(time);
-      rafId = requestAnimationFrame(loop);
-    };
-    const start = () => {
-      if (running) return;
-      running = true;
-      rafId = requestAnimationFrame(loop);
-    };
-    const stop = () => {
-      running = false;
-      cancelAnimationFrame(rafId);
-    };
-
-    // pointer follow
-    const setProbeFromEvent = (event) => {
-      const rect = canvas.getBoundingClientRect();
-      KNN.probe = toNorm(rect.width, rect.height, event.clientX - rect.left, event.clientY - rect.top);
-      KNN.lastInteraction = performance.now();
-    };
-    canvas.addEventListener("pointerenter", () => {
-      KNN.following = true;
-    });
-    canvas.addEventListener("pointermove", (event) => {
-      KNN.following = true;
-      setProbeFromEvent(event);
-      if (!running) draw(performance.now());
-    });
-    canvas.addEventListener("pointerdown", (event) => {
-      KNN.following = true;
-      setProbeFromEvent(event);
-      if (canvas.setPointerCapture) canvas.setPointerCapture(event.pointerId);
-    });
-    const release = () => {
-      KNN.following = false;
-      KNN.lastInteraction = performance.now();
-    };
-    canvas.addEventListener("pointerup", release);
-    canvas.addEventListener("pointerleave", release);
-    canvas.style.touchAction = "none";
-    canvas.style.cursor = "grab";
-
-    // k control
-    if (kInput) {
-      const onInput = () => {
-        KNN.k = Number(kInput.value);
-        if (kOutput) kOutput.textContent = `k = ${KNN.k}`;
-        KNN.lastInteraction = performance.now();
-        if (!running) draw(performance.now());
-      };
-      kInput.addEventListener("input", onInput);
-      KNN.k = Number(kInput.value) || 5;
+    function schedule(delay) {
+      clearTimer();
+      if (!paused && visible && !document.hidden) timer = window.setTimeout(tick, delay);
     }
 
-    // pause when off-screen / tab hidden
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && !reduceMotion) start();
-            else stop();
-          });
-        },
-        { threshold: 0.05 },
-      );
-      io.observe(canvas);
-    } else if (!reduceMotion) {
-      start();
+    function tick() {
+      if (lineIndex >= lines.length) {
+        reset();
+        schedule(400);
+        return;
+      }
+      const line = lines[lineIndex];
+      const code = snippets[lineIndex];
+      line.classList.add("is-typing");
+      if (charIndex < code.length) {
+        line.textContent = code.slice(0, ++charIndex);
+        schedule(42);
+        return;
+      }
+      line.classList.remove("is-typing");
+      lineIndex += 1;
+      charIndex = 0;
+      preview.dataset.stage = String(lineIndex);
+      if (counter) counter.textContent = `${String(lineIndex).padStart(2, "0")} / 04`;
+      schedule(lineIndex === lines.length ? 2600 : 500);
     }
+
+    function setPaused(next) {
+      paused = next;
+      widget.dataset.paused = String(next);
+      const label = next ? "Play animation" : "Pause animation";
+      toggle.setAttribute("aria-label", label);
+      toggle.title = label;
+      if (next) clearTimer();
+      else schedule(0);
+    }
+
+    toggle.addEventListener("click", () => setPaused(!paused));
+    replay.addEventListener("click", () => {
+      reset();
+      setPaused(false);
+    });
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) stop();
-      else if (!reduceMotion) start();
+      if (document.hidden) clearTimer();
+      else schedule(0);
     });
-
-    draw(performance.now()); // first paint even when reduced motion
-  }
-
-  /* ---------- Collaborative pull request workflow ---------- */
-  function initSystemFlow() {
-    const workflow = $("[data-pr-workflow]");
-    if (!workflow) return;
-
-    const focus = $("#system-focus");
-    const speed = $("#system-speed");
-    const output = $("#system-flow-output");
-    const steps = $$("[data-pr-stage]", workflow);
-    if (!steps.length) return;
-
-    let intervalId = 0;
-    let currentIndex = Math.max(0, steps.findIndex((step) => step.classList.contains("is-active")));
-
-    function delay() {
-      const multiplier = speed ? Number(speed.value) || 3 : 3;
-      return 3600 - multiplier * 420;
-    }
-
-    function setStage(index) {
-      currentIndex = (index + steps.length) % steps.length;
-      const progress = steps.length > 1 ? (currentIndex / (steps.length - 1)) * 100 : 0;
-      workflow.style.setProperty("--pr-progress", `${progress}%`);
-
-      steps.forEach((step, stepIndex) => {
-        step.classList.toggle("is-active", stepIndex === currentIndex);
-        step.classList.toggle("is-complete", stepIndex < currentIndex);
-      });
-
-      const active = steps[currentIndex];
-      if (focus) focus.textContent = active.dataset.prStage || "";
-      if (output) output.textContent = active.dataset.prStatus || "";
-    }
-
-    function start() {
-      if (intervalId || reduceMotion) return;
-      intervalId = window.setInterval(() => setStage(currentIndex + 1), delay());
-    }
-
-    function stop() {
-      window.clearInterval(intervalId);
-      intervalId = 0;
-    }
-
-    steps.forEach((step, index) => {
-      step.addEventListener("mouseenter", () => setStage(index));
-      step.addEventListener("focus", () => setStage(index));
-    });
-
-    if (speed) {
-      speed.addEventListener("input", () => {
-        stop();
-        start();
-      });
-    }
-
     if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) start();
-          else stop();
-        });
-      }, { threshold: 0.05 });
-      observer.observe(workflow);
-    } else {
-      start();
+      new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) schedule(0);
+        else clearTimer();
+      }, { threshold: 0.1 }).observe(widget);
     }
 
-    setStage(currentIndex);
+    reset();
+    schedule(0);
   }
 
   /* ---------- helpers ---------- */
-  function clamp(value, min, max) {
-    return Math.min(Math.max(value, min), max);
-  }
   function hexToRgba(hex, alpha) {
     const n = parseInt(hex.slice(1), 16);
     return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
@@ -789,5 +539,5 @@
   initScrollReveal();
   initCommandPalette();
   initSkillMap();
-  initSystemFlow();
+  initBuildDemo();
 })();

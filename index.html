@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yi Han is an Auckland-based Software Engineer and Master of IT student building full-stack web applications with Java, Spring Boot, Vue, React, Node.js, and databases.">
+  <meta name="description" content="Yi Han is an Auckland-based software engineer building practical web apps and browser tools, including PanSub, ReNova, KiwiCue, and TillTally.">
   <meta name="theme-color" content="#f5f5f7">
   <link rel="canonical" href="https://hannnnnnnny.github.io/yi-han-software-engineer/">
   <meta property="og:title" content="Software Engineer | Yi Han">
-  <meta property="og:description" content="Full-stack software projects from Yi Han, a Master of IT student building Java, Spring Boot, Vue, React, TypeScript, Node.js, and database-backed systems.">
+  <meta property="og:description" content="Web apps and browser tools built by Auckland-based software engineer Yi Han.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hannnnnnnny.github.io/yi-han-software-engineer/">
   <meta property="og:image" content="https://hannnnnnnny.github.io/yi-han-software-engineer/assets/social-preview.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Software Engineer | Yi Han">
-  <meta name="twitter:description" content="Full-stack software projects from Yi Han, a Master of IT student building Java, Spring Boot, Vue, React, TypeScript, Node.js, and database-backed systems.">
+  <meta name="twitter:description" content="Web apps and browser tools built by Auckland-based software engineer Yi Han.">
   <meta name="twitter:image" content="https://hannnnnnnny.github.io/yi-han-software-engineer/assets/social-preview.svg">
   <title>Software Engineer | Yi Han</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260924-concise">
+  <link rel="stylesheet" href="styles.css?v=20260924-live-build">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -54,13 +54,13 @@
       <div class="hero-text">
         <p class="eyebrow hero-rise" style="--rise-delay: 0ms">Auckland, New Zealand</p>
         <h1 id="hero-title" class="hero-title"><span class="reveal-line"><span class="reveal-inner" style="--rise-delay: 90ms">Software Engineer | Yi Han</span></span></h1>
-        <p class="hero-statement hero-rise" style="--rise-delay: 230ms">I build useful web apps, from interface to API.</p>
+        <p class="hero-statement hero-rise" style="--rise-delay: 230ms">I build useful web apps and browser tools.</p>
         <p class="hero-context hero-rise" style="--rise-delay: 340ms">
-          Small ideas that make everyday tasks easier are the ones I like to build.
+          I make useful information easier to find, from lecture subtitles to local events.
         </p>
 
         <ul class="hero-proof" aria-label="Profile highlights">
-          <li><strong>3 projects</strong><span>selected work</span></li>
+          <li><strong>4 projects</strong><span>selected work</span></li>
           <li><strong>Java · TypeScript · SQL</strong><span>core tools</span></li>
           <li><strong>Open to roles</strong><span>software / full-stack</span></li>
         </ul>
@@ -94,56 +94,34 @@
 
       <aside class="hero-demo" aria-labelledby="demo-title">
         <div class="hero-demo-heading">
-          <p class="eyebrow">How I collaborate</p>
-          <h2 id="demo-title">From branch to merge.</h2>
+          <p class="eyebrow">Live build</p>
+          <h2 id="demo-title">From code to page.</h2>
         </div>
-        <div class="model-widget" aria-label="Interactive collaborative pull request workflow">
-          <div class="model-widget-header">
-            <span>Collaborative PR flow</span>
-            <output id="system-flow-output">pull request open</output>
-          </div>
-          <div class="pr-workflow" data-pr-workflow aria-label="Interactive pull request workflow from branch to review, checks, and merge.">
-            <div class="pr-summary">
-              <div>
-                <span class="pr-eyebrow">
-                  <i data-lucide="git-pull-request" aria-hidden="true"></i>
-                  Pull request #12
-                </span>
-                <strong>Improve Auckland events discovery</strong>
-              </div>
-              <span class="pr-state">Open</span>
+        <div class="build-widget" id="build-widget" aria-label="A code typing animation builds a portfolio preview step by step">
+          <div class="build-toolbar">
+            <span><span class="build-live-dot" aria-hidden="true"></span> portfolio.html</span>
+            <div class="build-buttons">
+              <button type="button" id="build-toggle" aria-label="Pause animation" title="Pause animation">
+                <i data-lucide="pause" class="build-pause-icon" aria-hidden="true"></i>
+                <i data-lucide="play" class="build-play-icon" aria-hidden="true"></i>
+              </button>
+              <button type="button" id="build-replay" aria-label="Replay animation" title="Replay animation">
+                <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+              </button>
             </div>
-            <ol class="pr-track" aria-label="Pull request stages">
-              <li class="pr-step" tabindex="0" data-pr-stage="Work branch" data-pr-status="branch work ready">
-                <span class="pr-icon"><i data-lucide="git-branch" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Work branch</strong><small>Code and commits</small></span>
-                <span class="pr-actor">Author</span>
-              </li>
-              <li class="pr-step is-active" tabindex="0" data-pr-stage="Open PR" data-pr-status="pull request open">
-                <span class="pr-icon"><i data-lucide="git-pull-request" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Open PR</strong><small>Context and preview</small></span>
-                <span class="pr-actor">GitHub</span>
-              </li>
-              <li class="pr-step" tabindex="0" data-pr-stage="Review + CI" data-pr-status="review and checks active">
-                <span class="pr-icon"><i data-lucide="message-square" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Review + CI</strong><small>Feedback and checks</small></span>
-                <span class="pr-actor">Team</span>
-              </li>
-              <li class="pr-step" tabindex="0" data-pr-stage="Merge" data-pr-status="ready to merge">
-                <span class="pr-icon"><i data-lucide="git-merge" aria-hidden="true"></i></span>
-                <span class="pr-copy"><strong>Merge</strong><small>Main updated</small></span>
-                <span class="pr-actor">Maintainer</span>
-              </li>
-            </ol>
           </div>
-          <div class="knn-readout system-readout">
-            <span class="knn-pred-label">Current stage</span>
-            <span class="knn-pred" id="system-focus" aria-live="polite">Open PR</span>
+          <pre class="build-code" aria-hidden="true"><code><span class="code-row" data-code="&lt;header&gt;Yi Han&lt;/header&gt;">&lt;header&gt;Yi Han&lt;/header&gt;</span><span class="code-row" data-code="&lt;h1&gt;Software Engineer&lt;/h1&gt;">&lt;h1&gt;Software Engineer&lt;/h1&gt;</span><span class="code-row" data-code="&lt;p&gt;Useful web apps.&lt;/p&gt;">&lt;p&gt;Useful web apps.&lt;/p&gt;</span><span class="code-row" data-code="&lt;a href='#projects'&gt;Projects&lt;/a&gt;">&lt;a href='#projects'&gt;Projects&lt;/a&gt;</span></code></pre>
+          <div class="build-preview" id="build-preview" aria-hidden="true">
+            <div class="build-beams"></div>
+            <div class="preview-topline"><span>Preview</span><span>Yi Han / 2026</span></div>
+            <div class="preview-content">
+              <span class="preview-brand" data-preview-stage="1">Yi Han</span>
+              <strong class="preview-title" data-preview-stage="2">Software<br>Engineer.</strong>
+              <span class="preview-description" data-preview-stage="3">Useful web apps.</span>
+              <span class="preview-link" data-preview-stage="4">View projects <i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
+            </div>
           </div>
-          <label class="knn-control" for="system-speed">
-            <span>Flow speed</span>
-            <input id="system-speed" type="range" min="1" max="5" step="1" value="3" autocomplete="off">
-          </label>
+          <div class="build-footer"><span>01 / 04</span><span>Code becomes interface</span></div>
         </div>
       </aside>
     </section>
@@ -226,11 +204,31 @@
       <div class="section-heading">
         <p class="section-label">Projects</p>
         <h2 id="projects-title">Selected projects</h2>
-        <p>Three ways I have put full-stack skills to work.</p>
       </div>
 
       <div class="project-list">
-        <article class="project-card project-card-featured" id="project-renova">
+        <article class="project-card project-card-featured" id="project-pansub">
+          <a class="project-thumb" href="https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe" target="_blank" rel="noopener noreferrer" aria-label="View PanSub on the Chrome Web Store">
+            <img src="assets/previews/pansub.png" alt="PanSub bilingual subtitles over a Panopto lecture recording" loading="lazy">
+            <span class="thumb-badge">Published</span>
+          </a>
+          <div class="project-main">
+            <p class="project-type">Chrome extension</p>
+            <h3>PanSub</h3>
+            <p>Real-time Panopto subtitles, used by 200+ people in the US and beyond.</p>
+          </div>
+          <ul class="tags" aria-label="Technologies used">
+            <li>JavaScript</li>
+            <li>Chrome APIs</li>
+            <li>Manifest V3</li>
+          </ul>
+          <div class="project-actions">
+            <a class="project-link" href="https://chromewebstore.google.com/detail/chgafndhbmocpgbaellpbjckmnbkmdfe" target="_blank" rel="noopener noreferrer" aria-label="View PanSub on the Chrome Web Store">Chrome Web Store</a>
+            <a class="project-link" href="https://github.com/hannnnnnnny/pansub/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="Read the PanSub README on GitHub">GitHub README</a>
+          </div>
+        </article>
+
+        <article class="project-card" id="project-renova">
           <a class="project-thumb" href="https://hannnnnnnny.github.io/ReNova-Second-Hand-C2C-Marketplace/" target="_blank" rel="noopener noreferrer" aria-label="Open the live ReNova marketplace">
             <img src="assets/previews/renova.png" alt="ReNova marketplace storefront preview" loading="lazy">
             <span class="thumb-badge">Live</span>
@@ -259,15 +257,17 @@
           <div class="project-main">
             <p class="project-type">Auckland event discovery</p>
             <h3>KiwiCue</h3>
-            <p>Find local events in a date-first feed with search and reminders.</p>
+            <p>Events and cinema sessions in one place, so people can spot options beyond the first listing.</p>
           </div>
           <ul class="tags" aria-label="Technologies used">
+            <li>Next.js</li>
+            <li>React</li>
             <li>TypeScript</li>
-            <li>API Integration</li>
-            <li>Vercel</li>
+            <li>APIs</li>
           </ul>
           <div class="project-actions">
-            <a class="project-link" href="https://kiwicue.vercel.app/events" target="_blank" rel="noopener noreferrer" aria-label="Open the live KiwiCue events page">Live site</a>
+            <a class="project-link" href="https://kiwicue.vercel.app/events" target="_blank" rel="noopener noreferrer" aria-label="Browse KiwiCue events">Events</a>
+            <a class="project-link" href="https://kiwicue.vercel.app/movies" target="_blank" rel="noopener noreferrer" aria-label="Browse KiwiCue movies and cinema sessions">Movies</a>
             <a class="project-link" href="https://github.com/hannnnnnnny/kiwicue/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="Read the KiwiCue README on GitHub">GitHub README</a>
           </div>
         </article>
@@ -519,7 +519,7 @@
           <span>Profile</span><small>Yi Han at a glance</small>
         </button>
         <button type="button" data-command-item data-command-label="Projects GitHub ReNova KiwiCue TillTally software engineering" data-command-target="#projects">
-          <span>Projects</span><small>See three selected builds</small>
+          <span>Projects</span><small>See four selected builds</small>
         </button>
         <button type="button" data-command-item data-command-label="Process software workflow modelling routing build verify" data-command-target="#lifecycle">
           <span>Process</span><small>Model, route, build, verify</small>
@@ -542,6 +542,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js" defer></script>
-  <script src="app.js?v=20260924-concise" defer></script>
+  <script src="app.js?v=20260924-live-build" defer></script>
 </body>
 </html>
