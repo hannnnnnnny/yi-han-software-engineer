@@ -1,24 +1,23 @@
 /*
  * Yi Han - portfolio interactions (vanilla, no framework).
  * Modules: project filters, process tabs, scroll progress, section nav,
- * hero spotlight, scroll reveal, card spotlight, command palette,
- * skill map, and an interactive full-stack flow canvas.
+ * scroll reveal, command palette,
+ * skill map, and an interactive pull request workflow.
  */
 (() => {
   "use strict";
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const finePointer = window.matchMedia("(pointer: fine)").matches;
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
   const canvasTheme = {
-    background: "#f8fbf8",
-    ink: "#173c30",
-    muted: "#596a62",
-    primary: "#245746",
-    secondary: "#356f69",
-    rose: "#d97898",
-    amber: "#a56f29",
+    background: "#f5f5f7",
+    ink: "#1d1d1f",
+    muted: "#6e6e73",
+    primary: "#0066cc",
+    secondary: "#248164",
+    rose: "#8066a9",
+    amber: "#ad6c00",
   };
 
   document.documentElement.classList.add("js-enabled");
@@ -134,20 +133,6 @@
     sections.forEach((section) => observer.observe(section));
   }
 
-  /* ---------- Hero cursor spotlight ---------- */
-  function initHeroSpotlight() {
-    const hero = $(".hero");
-    if (!hero || !finePointer || reduceMotion) return;
-
-    hero.addEventListener("pointermove", (event) => {
-      const rect = hero.getBoundingClientRect();
-      hero.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
-      hero.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
-      hero.classList.add("spotlight-on");
-    });
-    hero.addEventListener("pointerleave", () => hero.classList.remove("spotlight-on"));
-  }
-
   /* ---------- Scroll reveal ---------- */
   function initScrollReveal() {
     const targets = $$(
@@ -176,30 +161,6 @@
       { rootMargin: "0px 0px -10% 0px", threshold: 0.08 },
     );
     targets.forEach((node) => observer.observe(node));
-  }
-
-  /* ---------- Card cursor glow ---------- */
-  function initCardGlow() {
-    if (!finePointer) return;
-    const cards = $$(".project-card, .focus-grid article, .note-card");
-    cards.forEach((card) => {
-      card.classList.add("has-glow");
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--cx", `${event.clientX - rect.left}px`);
-        card.style.setProperty("--cy", `${event.clientY - rect.top}px`);
-        if (!reduceMotion && card.classList.contains("project-card")) {
-          const x = (event.clientX - rect.left) / rect.width - 0.5;
-          const y = (event.clientY - rect.top) / rect.height - 0.5;
-          card.style.setProperty("--tilt-x", `${(-y * 3).toFixed(2)}deg`);
-          card.style.setProperty("--tilt-y", `${(x * 3).toFixed(2)}deg`);
-        }
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-      });
-    });
   }
 
   /* ---------- Command palette ---------- */
@@ -345,12 +306,6 @@
       card.addEventListener("click", (event) => {
         if (!event.target.closest("a")) update(card);
       });
-    });
-
-    inspector.addEventListener("pointermove", (event) => {
-      const rect = inspector.getBoundingClientRect();
-      inspector.style.setProperty("--cx", `${event.clientX - rect.left}px`);
-      inspector.style.setProperty("--cy", `${event.clientY - rect.top}px`);
     });
 
     document.addEventListener("projectfilterchange", () => {
@@ -505,7 +460,7 @@
         ctx.beginPath();
         ctx.moveTo(a.x * w, a.y * h);
         ctx.lineTo(b.x * w, b.y * h);
-        ctx.strokeStyle = active ? `rgba(36, 87, 70, ${0.22 + pulse * 0.28})` : "rgba(89, 106, 98, 0.18)";
+        ctx.strokeStyle = active ? hexToRgba(canvasTheme.primary, 0.22 + pulse * 0.28) : "rgba(110, 110, 115, 0.18)";
         ctx.lineWidth = active ? 1.8 : 1;
         ctx.stroke();
       });
@@ -515,7 +470,7 @@
         const y = node.y * h;
         const active = node.key === activeKey;
         ctx.beginPath();
-        ctx.fillStyle = active ? hexToRgba(node.color, 0.18) : "rgba(89, 106, 98, 0.08)";
+        ctx.fillStyle = active ? hexToRgba(node.color, 0.18) : "rgba(110, 110, 115, 0.08)";
         ctx.arc(x, y, active ? 20 + pulse * 3 : 16, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
@@ -692,7 +647,7 @@
       }
 
       // faint plot frame
-      ctx.strokeStyle = "rgba(89,106,98,0.22)";
+      ctx.strokeStyle = "rgba(110,110,115,0.22)";
       ctx.lineWidth = 1;
       ctx.strokeRect(KNN.pad, KNN.pad, w - KNN.pad * 2, h - KNN.pad * 2);
 
@@ -921,50 +876,13 @@
     if (window.lucide) window.lucide.createIcons();
   }
 
-  /* ---------- Magnetic buttons ---------- */
-  function initMagnetic() {
-    if (!finePointer || reduceMotion) return;
-    const strength = 0.24;
-    $$("[data-magnetic]").forEach((el) => {
-      const inner = $(".magnetic-inner", el);
-      el.addEventListener("pointermove", (event) => {
-        const rect = el.getBoundingClientRect();
-        const mx = event.clientX - (rect.left + rect.width / 2);
-        const my = event.clientY - (rect.top + rect.height / 2);
-        // Integer 2D translate + instant inner tracking keeps button text
-        // sharp and legible (no easing smear, no 3D-layer AA thinning).
-        const tx = Math.round(mx * strength);
-        const ty = Math.round(my * strength);
-        el.style.transition = "transform 0s";
-        el.style.transform = `translate(${tx}px, ${ty}px)`;
-        if (inner) {
-          inner.style.transition = "transform 0s";
-          inner.style.transform = `translate(${Math.round(tx * 0.35)}px, ${Math.round(ty * 0.35)}px)`;
-        }
-      });
-      const reset = () => {
-        el.style.transition = "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)";
-        el.style.transform = "";
-        if (inner) {
-          inner.style.transition = "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)";
-          inner.style.transform = "";
-        }
-      };
-      el.addEventListener("pointerleave", reset);
-      el.addEventListener("blur", reset);
-    });
-  }
-
   /* ---------- boot ---------- */
   initIcons();
-  initMagnetic();
   initHashPosition();
   initProjectFilters();
   initLifecycleTabs();
   initScrollSync();
-  initHeroSpotlight();
   initScrollReveal();
-  initCardGlow();
   initCommandPalette();
   initProjectInspector();
   initSkillMap();
