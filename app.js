@@ -238,6 +238,8 @@
       tilltally: { label: "TillTally", href: "#project-tilltally" },
       portfolio: { label: "This portfolio", href: "#top" },
       github: { label: "GitHub repositories", href: "https://github.com/hannnnnnnny", external: true },
+      ragDemo: { label: "RAG demo", href: "https://github.com/hannnnnnnny/RAG_demo", external: true },
+      typesafeSdk: { label: "TypeSafe AI SDK", href: "https://github.com/hannnnnnnny/typesafe-sdk-js", external: true },
     };
     const evidence = {
       React: { text: "Builds TillTally's dashboard UI, CSV upload flows, tables, and chart pages.", projects: ["tilltally"] },
@@ -249,6 +251,7 @@
       Vite: { text: "Supports fast local iteration and reproducible frontend builds.", projects: ["renova", "tilltally"] },
       Tailwind: { text: "Drives TillTally's responsive dashboard layout and component styling.", projects: ["tilltally"] },
       Java: { text: "Implements domain logic and backend service structure for ReNova.", projects: ["renova"] },
+      "C#": { text: "Studying C# for typed application and back-end development.", projects: [] },
       "Spring Boot": { text: "Structures APIs, authentication, services, and transactional application flows.", projects: ["renova"] },
       "Node.js": { text: "Runs TypeScript and JavaScript tooling for web application projects.", projects: ["tilltally", "kiwicue"] },
       Express: { text: "Provides TillTally's API routes for imports, dashboards, and reports.", projects: ["tilltally"] },
@@ -271,6 +274,11 @@
       AIDLC: { text: "Gives me a practical way to frame software and AI-adjacent features around a real user problem.", projects: ["tilltally", "kiwicue"] },
       "Tool design": { text: "Turns a narrow user problem into a small interface that can be tested and improved.", projects: ["kiwicue", "tilltally"] },
       "GitHub Actions": { text: "Runs TillTally's CI pipeline for builds and checks on every push.", projects: ["tilltally"] },
+      Azure: { text: "Studying Azure services and application deployment patterns.", projects: [] },
+      AWS: { text: "Studying AWS services and cloud architecture fundamentals.", projects: [] },
+      RAG: { text: "Built a Python client for hosted document retrieval, showing source passages beside answers.", projects: ["ragDemo"] },
+      LLM: { text: "Uses a hosted language model in a retrieval workflow and checks answers against source context.", projects: ["ragDemo"] },
+      Jev: { text: "TypeSafe AI's structured decision model, accessed through its JavaScript and TypeScript SDK.", projects: ["typesafeSdk"] },
     };
     const nodes = [
       { key: "Frontend", label: "UI", x: 0.18, y: 0.3, color: canvasTheme.primary, text: "Frontend turns product workflows into screens, states, and responsive interactions." },
@@ -278,11 +286,13 @@
       { key: "Database", label: "SQL", x: 0.76, y: 0.72, color: canvasTheme.secondary, text: "Database thinking keeps projects grounded in schema, queries, and relationships." },
       { key: "Engineering", label: "ENG", x: 0.26, y: 0.75, color: canvasTheme.muted, text: "Engineering tools make the work reproducible, testable, and easier to review." },
       { key: "Product", label: "WHY", x: 0.48, y: 0.5, color: canvasTheme.rose, text: "Product thinking helps me choose features around real needs rather than filler." },
+      { key: "CloudAI", label: "AI", x: 0.49, y: 0.13, color: "#5555b8", text: "Cloud and AI tools help with deployment, retrieval, and structured decisions." },
     ];
     const links = [
       ["Frontend", "Backend"], ["Backend", "Database"], ["Frontend", "Product"],
       ["Backend", "Product"], ["Database", "Engineering"], ["Engineering", "Frontend"],
       ["Engineering", "Backend"], ["Product", "Engineering"],
+      ["CloudAI", "Backend"], ["CloudAI", "Product"],
     ];
     let activeKey = cards[0].dataset.skillCard || "Data";
     let activeCard = cards[0];
@@ -294,11 +304,9 @@
     const renderProjectLinks = (projectKeys) => {
       if (!projectLinks) return;
       projectLinks.replaceChildren();
+      const projectGroup = projectLinks.closest(".skill-projects");
+      if (projectGroup) projectGroup.hidden = !projectKeys?.length;
       if (!projectKeys?.length) {
-        const placeholder = document.createElement("span");
-        placeholder.className = "skill-project-placeholder";
-        placeholder.textContent = "Project evidence pending";
-        projectLinks.append(placeholder);
         return;
       }
       projectKeys.forEach((projectKey) => {
