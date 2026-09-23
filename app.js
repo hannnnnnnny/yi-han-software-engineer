@@ -1,6 +1,6 @@
 /*
  * Yi Han - portfolio interactions (vanilla, no framework).
- * Modules: project filters, process tabs, scroll progress, section nav,
+ * Modules: process tabs, scroll progress, section nav,
  * scroll reveal, command palette,
  * skill map, and an interactive pull request workflow.
  */
@@ -31,46 +31,6 @@
         target.scrollIntoView({ behavior: "auto", block: "start" });
       });
     }, { once: true });
-  }
-
-  /* ---------- Project filters ---------- */
-  function initProjectFilters() {
-    const buttons = $$("[data-project-filter]");
-    const cards = $$("[data-project-groups]");
-    const status = $("#project-filter-status");
-    if (!buttons.length) return;
-
-    const apply = (filter) => {
-      const activeButton = buttons.find((button) => button.dataset.projectFilter === filter);
-      const filterLabel = activeButton ? activeButton.textContent.trim() : "All";
-      let visibleCount = 0;
-
-      buttons.forEach((button) => {
-        const active = button.dataset.projectFilter === filter;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
-      cards.forEach((card) => {
-        const groups = (card.dataset.projectGroups || "").split(/\s+/).filter(Boolean);
-        const visible = filter === "all" || groups.includes(filter);
-        card.hidden = !visible;
-        card.classList.toggle("is-filtered-out", !visible);
-        if (visible) visibleCount += 1;
-      });
-      if (status) {
-        status.textContent = filter === "all"
-          ? `Showing all ${cards.length} selected projects.`
-          : `Showing ${visibleCount} of ${cards.length} selected projects for ${filterLabel}.`;
-      }
-      document.dispatchEvent(new CustomEvent("projectfilterchange", {
-        detail: { filter, visibleCount, total: cards.length },
-      }));
-    };
-
-    buttons.forEach((button) =>
-      button.addEventListener("click", () => apply(button.dataset.projectFilter || "all")),
-    );
-    apply("all");
   }
 
   /* ---------- AIDLC lifecycle tabs ---------- */
@@ -136,7 +96,7 @@
   /* ---------- Scroll reveal ---------- */
   function initScrollReveal() {
     const targets = $$(
-      ".section-heading, .focus-grid article, .lifecycle-layout, .project-card, .note-card, .contact-section .section-copy",
+      ".section-heading, .focus-grid article, .lifecycle-layout, .project-card, .contact-section .section-copy",
     );
     if (!targets.length) return;
 
@@ -260,60 +220,6 @@
     });
   }
 
-  /* ---------- Project inspector ---------- */
-  function initProjectInspector() {
-    const inspector = $(".project-inspector");
-    const cards = $$("[data-project-groups]");
-    if (!inspector || !cards.length) return;
-
-    const current = $("[data-inspector-current]", inspector);
-    const title = $("#project-inspector-title", inspector);
-    const type = $(".inspector-type", inspector);
-    const role = $("[data-inspector-role]", inspector);
-    const proof = $("[data-inspector-proof]", inspector);
-    const angle = $("[data-inspector-angle]", inspector);
-    const tags = $(".inspector-tags", inspector);
-    const link = $(".inspector-link", inspector);
-
-    const update = (card) => {
-      if (!card || card.hidden) return;
-      const projectTitle = $("h3", card)?.textContent?.trim() || "Selected project";
-      const projectSignal = card.dataset.projectSignal || $(".project-type", card)?.textContent?.trim() || "Project signal";
-      const roleFit = card.dataset.roleFit || "Practical software work";
-      const proofPoint = card.dataset.proof || "Readable code, workflow details, and project notes";
-      const interviewAngle = card.dataset.angle || "A focused example to discuss decisions and tradeoffs.";
-      const projectTags = $$(".tags li", card).map((tag) => tag.textContent.trim());
-      const projectLink = $(".project-link", card)?.getAttribute("href") || "#projects";
-
-      cards.forEach((item) => item.classList.toggle("is-previewed", item === card));
-      if (current) current.textContent = projectTitle;
-      if (title) title.textContent = "What this proves";
-      if (type) type.textContent = projectSignal;
-      if (role) role.textContent = roleFit;
-      if (proof) proof.textContent = proofPoint;
-      if (angle) angle.textContent = interviewAngle;
-      if (tags) tags.innerHTML = projectTags.slice(0, 4).map((tag) => "<span>" + tag + "</span>").join("");
-      if (link) {
-        link.href = projectLink;
-        link.setAttribute("aria-label", "Open the " + projectTitle + " README");
-      }
-    };
-
-    cards.forEach((card) => {
-      card.tabIndex = 0;
-      card.addEventListener("pointerenter", () => update(card));
-      card.addEventListener("focusin", () => update(card));
-      card.addEventListener("click", (event) => {
-        if (!event.target.closest("a")) update(card);
-      });
-    });
-
-    document.addEventListener("projectfilterchange", () => {
-      update(cards.find((card) => !card.hidden));
-    });
-    update(cards[0]);
-  }
-
   /* ---------- Skill capability map ---------- */
   function initSkillMap() {
     const canvas = $("#skill-map-canvas");
@@ -353,7 +259,7 @@
       MongoDB: { text: "Supports document-oriented data models for flexible application prototypes.", projects: ["github"] },
       SQLite: { text: "Provides a compact local database option for scripts and portable development workflows.", projects: ["github"] },
       SQL: { text: "Connects filters, relationships, reports, and application state to stored data.", projects: ["renova", "tilltally"] },
-      JavaScript: { text: "Powers this portfolio's canvas, filters, command palette, and interaction state.", projects: ["portfolio"] },
+      JavaScript: { text: "Powers this portfolio's canvas, command palette, and interaction state.", projects: ["portfolio"] },
       Git: { text: "Keeps project history reviewable across the portfolio and selected repositories.", projects: ["github"] },
       GitHub: { text: "Makes source, READMEs, project history, and reviewable changes easy to inspect.", projects: ["github"] },
       npm: { text: "Manages JavaScript tooling and repeatable local project setup.", projects: ["tilltally", "portfolio"] },
@@ -408,7 +314,6 @@
             const target = $(project.href);
             if (!target) return;
             event.preventDefault();
-            $("[data-project-filter=\"all\"]")?.click();
             requestAnimationFrame(() => {
               target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
               window.history.replaceState(null, "", project.href);
@@ -879,12 +784,10 @@
   /* ---------- boot ---------- */
   initIcons();
   initHashPosition();
-  initProjectFilters();
   initLifecycleTabs();
   initScrollSync();
   initScrollReveal();
   initCommandPalette();
-  initProjectInspector();
   initSkillMap();
   initSystemFlow();
 })();
