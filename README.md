@@ -4,10 +4,11 @@ This repository contains Yi Han's role-specific software engineering portfolio:
 
 https://hannnnnnnny.github.io/yi-han-software-engineer/
 
-It is a static GitHub Pages site focused on three full-stack software projects, with a small vanilla JavaScript layer for the command palette, skill map, scroll state, and collaborative PR workflow panel.
+It is a static GitHub Pages site featuring selected software projects, with a small vanilla JavaScript layer for the command palette, skill map, scroll state, and live code-to-page preview.
 
 ## Featured Projects
 
+- PanSub Chrome extension
 - ReNova Second-Hand C2C Marketplace
 - KiwiCue
 - TillTally
