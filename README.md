@@ -9,6 +9,8 @@ It is a static GitHub Pages site featuring selected software projects, with a sm
 ## Featured Projects
 
 - PanSub Chrome extension
+- pyagent, a safety-first AI agent harness
+- Ashen Depths, a pixel ARPG for Windows and TI-Nspire CX
 - ReNova Second-Hand C2C Marketplace
 - KiwiCue
 - TillTally

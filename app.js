@@ -233,6 +233,8 @@
     const projectLinks = $("#skill-project-links");
     const projects = {
       pansub: { label: "PanSub", href: "#project-pansub" },
+      pyagent: { label: "pyagent", href: "#project-pyagent" },
+      ashenDepths: { label: "Ashen Depths", href: "#project-ashen-depths" },
       renova: { label: "ReNova", href: "#project-renova" },
       kiwicue: { label: "KiwiCue", href: "#project-kiwicue" },
       tilltally: { label: "TillTally", href: "#project-tilltally" },
@@ -277,7 +279,7 @@
       Azure: { text: "Studying Azure services and application deployment patterns.", projects: [] },
       AWS: { text: "Studying AWS services and cloud architecture fundamentals.", projects: [] },
       RAG: { text: "Built a Python client for hosted document retrieval, showing source passages beside answers.", projects: ["ragDemo"] },
-      LLM: { text: "Uses a hosted language model in a retrieval workflow and checks answers against source context.", projects: ["ragDemo"] },
+      LLM: { text: "Drives pyagent's tool-calling loop on DeepSeek and Claude, and grounds a retrieval workflow in source context.", projects: ["pyagent", "ragDemo"] },
       Jev: { text: "TypeSafe AI's structured decision model, accessed through its JavaScript and TypeScript SDK.", projects: ["typesafeSdk"] },
     };
     const nodes = [
